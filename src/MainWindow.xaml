@@ -15,10 +15,11 @@
         </Grid.ColumnDefinitions>
         <Button Margin="460,41,144,351" Click="btnClickP1">Mangga</Button>
         <Button Content="Choose File" HorizontalAlignment="Left" Height="42" Margin="35,41,0,0" VerticalAlignment="Top" Width="91" Click="Button_Click"/>
-        <Label x:Name="Label2" Content="No File Selected" HorizontalAlignment="Left" Height="42" Margin="91,41,0,0" VerticalAlignment="Top" Width="151" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label x:Name="Label2" Content="No File Selected" HorizontalAlignment="Left" Height="42" Margin="95,41,0,0" VerticalAlignment="Top" Width="151" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         <WindowsFormsHost x:Name="FormHost" Margin="0,207,0,0" Grid.ColumnSpan="2">
             <!--<gv:GViewer x:Name="GraphViewer"/>-->
             <wf:MaskedTextBox x:Name="SilumanForm"></wf:MaskedTextBox>
         </WindowsFormsHost>
+        <Button Content="Nyah" HorizontalAlignment="Left" Height="71" Margin="210,103,0,0" VerticalAlignment="Top" Width="214" Click="Button_Click_1"/>
     </Grid>
 </Window>
