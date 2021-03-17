@@ -23,6 +23,7 @@ namespace HanyaKipas
     public partial class MainWindow : Window
     {
         Parser p;
+        bool cekk = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -67,11 +68,16 @@ namespace HanyaKipas
 
             //SilumanForm.Dispose();
             SilumanForm.SuspendLayout();
+            try
+            {
+                SilumanForm.Controls.RemoveAt(0);
+            }
+            catch { }
             //bind the graph to the viewer
             GraphViewer.Graph = graph;
             GraphViewer.Dock = DockStyle.Fill;
-            SilumanForm.Clear();
             SilumanForm.Controls.Add(GraphViewer);
+            
             SilumanForm.ResumeLayout();
             SilumanForm.Show();
         }
@@ -98,6 +104,12 @@ namespace HanyaKipas
             }
         }
         private void Window_Loaded(object sender, RoutedEventArgs e) {}
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            cekk = true;
+            
+        }
     }
 }
 
