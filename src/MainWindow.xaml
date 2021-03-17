@@ -7,19 +7,21 @@
         xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         xmlns:local="clr-namespace:HanyaKipas"
         mc:Ignorable="d"
-        Title="Hanya Kipas" Height="450" Width="820">
+        Title="Hanya Kipas" Height="1080" Width="1980"
+        Icon="D:\Kuliah\Semester4\Strategi Algoritma\Tubes\HanyaKipas\src\IMG (1).ico" ResizeMode="NoResize" Topmost="True" WindowState="Maximized" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
             <ColumnDefinition Width="811*"/>
             <ColumnDefinition Width="9*"/>
         </Grid.ColumnDefinitions>
-        <Button Margin="460,41,144,351" Click="btnClickP1">Mangga</Button>
-        <Button Content="Choose File" HorizontalAlignment="Left" Height="42" Margin="35,41,0,0" VerticalAlignment="Top" Width="91" Click="Button_Click"/>
-        <Label x:Name="Label2" Content="No File Selected" HorizontalAlignment="Left" Height="42" Margin="95,41,0,0" VerticalAlignment="Top" Width="151" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <WindowsFormsHost x:Name="FormHost" Margin="0,207,0,0" Grid.ColumnSpan="2">
+        <Button Margin="460,41,1377,954" Click="btnClickP1" Grid.ColumnSpan="2">Mangga</Button>
+        <Button Content="Choose File" HorizontalAlignment="Left" Height="42" Margin="35,41,0,0" VerticalAlignment="Top" Width="91" Click="Button_Click" Grid.ColumnSpan="2"/>
+        <Label x:Name="Label2" Content="No File Selected" HorizontalAlignment="Left" Height="42" Margin="95,41,0,0" VerticalAlignment="Top" Width="151" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.ColumnSpan="2"/>
+        <WindowsFormsHost x:Name="FormHost" Margin="0,207,0,0" Grid.ColumnSpan="3">
             <!--<gv:GViewer x:Name="GraphViewer"/>-->
             <wf:MaskedTextBox x:Name="SilumanForm"></wf:MaskedTextBox>
         </WindowsFormsHost>
-        <Button Content="Nyah" HorizontalAlignment="Left" Height="71" Margin="210,103,0,0" VerticalAlignment="Top" Width="214" Click="Button_Click_1"/>
+        <Button Content="Nyah" HorizontalAlignment="Left" Height="71" Margin="210,103,0,0" VerticalAlignment="Top" Width="214" Click="Button_Click_1" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>
