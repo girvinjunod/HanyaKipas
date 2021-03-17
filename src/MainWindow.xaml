@@ -4,17 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:gv="clr-namespace:Microsoft.Msagl.GraphViewerGdi;assembly=Microsoft.Msagl.GraphViewerGDI"
+        xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         xmlns:local="clr-namespace:HanyaKipas"
         mc:Ignorable="d"
         Title="Hanya Kipas" Height="450" Width="820">
     <Grid>
-        <Button Margin="571,41,153,351" Click="btnClickP1">Mangga</Button>
-        <Button Content="Choose File" HorizontalAlignment="Left" Height="42" Margin="111,41,0,0" VerticalAlignment="Top" Width="91" Click="Button_Click"/>
-        <Label x:Name="Label2" Content="No File Selected" HorizontalAlignment="Left" Height="42" Margin="202,41,0,0" VerticalAlignment="Top" Width="151" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Grid x:Name="Grid1" HorizontalAlignment="Left" Height="304" Margin="33,108,0,0" VerticalAlignment="Top" Width="751"/>
-        <DockPanel x:Name="dockPanel" HorizontalAlignment="Left" Height="329" LastChildFill="False" Margin="18,83,0,0" VerticalAlignment="Top" Width="766"/>
-        <!-- <WindowsFormsHost Name="anjingbabi" Margin="0,34,0,0">
-            <gv:GViewer x:Name="GraphViewer"></gv:GViewer>
-        </WindowsFormsHost> -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="811*"/>
+            <ColumnDefinition Width="9*"/>
+        </Grid.ColumnDefinitions>
+        <Button Margin="460,41,144,351" Click="btnClickP1">Mangga</Button>
+        <Button Content="Choose File" HorizontalAlignment="Left" Height="42" Margin="35,41,0,0" VerticalAlignment="Top" Width="91" Click="Button_Click"/>
+        <Label x:Name="Label2" Content="No File Selected" HorizontalAlignment="Left" Height="42" Margin="91,41,0,0" VerticalAlignment="Top" Width="151" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <WindowsFormsHost x:Name="FormHost" Margin="0,207,0,0" Grid.ColumnSpan="2">
+            <!--<gv:GViewer x:Name="GraphViewer"/>-->
+            <wf:MaskedTextBox x:Name="SilumanForm"></wf:MaskedTextBox>
+        </WindowsFormsHost>
     </Grid>
 </Window>
