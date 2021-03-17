@@ -11,7 +11,7 @@ namespace HanyaKipas.Lib
         /// <summary>
         /// Konstuktor graf tanpa argumen (Hanya menginisialisasi dictionary)
         /// </summary>
-        public Graph() {}
+        public Graph() { }
 
         /// <summary>
         /// Konstuktor graf dengan otomatis memasukkan sudut serta sisi,
@@ -119,7 +119,7 @@ namespace HanyaKipas.Lib
         /// <getter>
         /// Mengambil Nilai Dictionary
         /// </getter>
-        public Dictionary<Vertex, LinkedList<Vertex>> Kamus()
+        public Dictionary<Vertex, LinkedList<Vertex>> GetAdjList()
         {
             return adjList;
         }
