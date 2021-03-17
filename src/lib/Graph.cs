@@ -115,5 +115,13 @@ namespace HanyaKipas.Lib
                 Debug.WriteLine("");
             }
         }
+
+        /// <getter>
+        /// Mengambil Nilai Dictionary
+        /// </getter>
+        public Dictionary<Vertex, LinkedList<Vertex>> Kamus()
+        {
+            return adjList;
+        }
     }
 }

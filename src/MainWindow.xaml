@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HanyaKipas"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Hanya Kipas" Height="450" Width="820">
     <Grid>
-
+        <Button Margin="362,41,362,351" Click="btnClickP1">Mangga</Button>
+        <Label x:Name="label1" Content="" HorizontalAlignment="Center" Margin="0,104,0,0" VerticalAlignment="Top" Width="800" Height="320"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="42" Margin="154,41,0,0" VerticalAlignment="Top" Width="91" Click="Button_Click"/>
     </Grid>
 </Window>
