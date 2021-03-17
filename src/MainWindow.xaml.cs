@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -32,19 +30,18 @@ namespace HanyaKipas
 
         private void btnClickP1(object sender, RoutedEventArgs e)
         {
-            //System.Windows.Forms.Form form = new System.Windows.Forms.Form();
             //create a viewer object
-            Microsoft.Msagl.WpfGraphControl.GraphViewer viewer = new Microsoft.Msagl.WpfGraphControl.GraphViewer();
+            Microsoft.Msagl.GraphViewerGdi.GViewer GraphViewer = new();
             //create a graph object
-            Microsoft.Msagl.Drawing.Graph graph = new Microsoft.Msagl.Drawing.Graph("graph");
-            //create the graph content
-            //foreach(Vertex, LinkedList<Vertex> entry in g1.Dictionary)
+            Microsoft.Msagl.Drawing.Graph graph = new("graph");
 
             Boolean cek = true;
 
             p.Parse();
             Graph g1 = p.HasilParse;
+            g1.Print();
 
+            //create the graph content
             foreach(KeyValuePair<Node, LinkedList<Node>> entry in g1.GetAdjList())
             {
                 foreach (Node vert in entry.Value)
@@ -68,24 +65,15 @@ namespace HanyaKipas
                 }
             }
 
-            // graph.FindNode("Apel").Attr.FillColor = Microsoft.Msagl.Drawing.Color.LimeGreen;
-            // graph.FindNode("Babi").Attr.FillColor = Microsoft.Msagl.Drawing.Color.PaleVioletRed;
-            // graph.FindNode("Cucurut").Attr.FillColor = Microsoft.Msagl.Drawing.Color.Pink;
-            // graph.FindNode("Daddy").Attr.FillColor = Microsoft.Msagl.Drawing.Color.Gainsboro;
-
+            //SilumanForm.Dispose();
+            SilumanForm.SuspendLayout();
             //bind the graph to the viewer
-
-            viewer.Graph = graph;
-            viewer.BindToPanel(dockPanel);
-            //associate the viewer with the form
-            //Demon. SuspendLayout();
-            //viewer.Dock = System.Windows.Forms.DockStyle.Fill;
-
-            viewer.BindToPanel(Grid1);
-            //form.ResumeLayout();
-            //label1.Content =
-            //show the form
-            //form.Show();
+            GraphViewer.Graph = graph;
+            GraphViewer.Dock = DockStyle.Fill;
+            SilumanForm.Clear();
+            SilumanForm.Controls.Add(GraphViewer);
+            SilumanForm.ResumeLayout();
+            SilumanForm.Show();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -100,7 +88,6 @@ namespace HanyaKipas
             // Display OpenFileDialog by calling ShowDialog method
             Nullable<bool> result = dlg.ShowDialog();
 
-
             // Get the selected file name and display in a TextBox
             if (result == true)
             {
@@ -110,8 +97,7 @@ namespace HanyaKipas
                 p = new(dlg.FileName);
             }
         }
-
+        private void Window_Loaded(object sender, RoutedEventArgs e) {}
     }
-
 }
 
