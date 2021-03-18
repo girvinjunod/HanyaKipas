@@ -23,7 +23,7 @@ namespace HanyaKipas
     public partial class MainWindow : Window
     {
         Parser p;
-        bool cekk = false;
+        Graph g1;
         public MainWindow()
         {
             InitializeComponent();
@@ -38,8 +38,8 @@ namespace HanyaKipas
 
             Boolean cek = true;
 
-            p.Parse();
-            Graph g1 = p.HasilParse;
+            //p.Parse();
+            //Graph g1 = p.HasilParse;
             g1.Print();
 
             //create the graph content
@@ -102,14 +102,19 @@ namespace HanyaKipas
                 Label2.Content = filePath[filePath.Length-1];
                 p = new(dlg.FileName);
             }
-        }
+
+            p.Parse();
+            g1 = p.HasilParse;
+            foreach (KeyValuePair<Node, LinkedList<Node>> entry in g1.GetAdjList())
+            {
+                Node1.Items.Add(entry.Key.GetInfo());
+                Node2.Items.Add(entry.Key.GetInfo());
+            }
+
+
+                }
         private void Window_Loaded(object sender, RoutedEventArgs e) {}
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            cekk = true;
-            
-        }
     }
 }
 

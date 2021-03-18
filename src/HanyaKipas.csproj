@@ -10,10 +10,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="BG.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutomaticGraphLayout" Version="1.1.11" />
     <PackageReference Include="AutomaticGraphLayout.Drawing" Version="1.1.11" />
     <PackageReference Include="AutomaticGraphLayout.GraphViewerGDI" Version="1.1.11" />
     <PackageReference Include="AutomaticGraphLayout.WpfGraphControl" Version="1.1.11" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="BG.jpg" />
   </ItemGroup>
 
 </Project>
