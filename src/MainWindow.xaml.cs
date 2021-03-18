@@ -65,6 +65,8 @@ namespace HanyaKipas
                         cek = true;
                     }
                 }
+                graph.FindNode(Node1.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Aqua;
+                graph.FindNode(Node2.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
 
                 SilumanForm.SuspendLayout();
                 try
