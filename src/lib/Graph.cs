@@ -8,6 +8,7 @@ namespace HanyaKipas.Lib
     public class Graph
     {
         private Dictionary<Vertex, LinkedList<Vertex>> adjList = new();
+        private Dictionary<Vertex, bool> visited;
         /// <summary>
         /// Konstuktor graf tanpa argumen (Hanya menginisialisasi dictionary)
         /// </summary>
@@ -133,6 +134,79 @@ namespace HanyaKipas.Lib
             {
                 adjList.Remove(kvp.Key);
             }
+        }
+
+        public List<Vertex> BFS(Vertex entry, Vertex target)
+        {
+            Queue<Vertex> toVisit = new(); // vertex yang akan dikunjungi
+            Dictionary<Vertex, Vertex> memory = new(); // vertex pendahulu dari suatu vertex
+            List<Vertex> res = new(); // menyimpan vertex hasil
+            Vertex curVert; // vertex yang sedang dikunjungi
+            int visitedCount = 0; // banyak vertex yang sudah dikunjngi
+            int totalVerts = adjList.Count; // banyak vertex pada graf
+            bool found;
+
+            visited = new();
+            foreach (KeyValuePair<Vertex, LinkedList<Vertex>> kvp in adjList)
+            {
+                visited.Add(kvp.Key, false);
+            }
+
+            // akan divisit node entry
+            toVisit.Enqueue(entry);
+            do
+            {
+                // tentuin sudut yang lagi divisit lalu catat sudutnya
+                curVert = toVisit.Dequeue();
+                // apakah sudut sudah ketemu?
+                found = target.Equals(curVert);
+                // kalau belum divisit dan belum ketemu
+                if (!visited[curVert] && !found)
+                {
+                    // iterasi semua vertex tetangga
+                    foreach (Vertex vertex in adjList[curVert])
+                    {
+                        // tambahin sudut tetangganya yang belum divisit
+                        if (!memory.ContainsKey(vertex))
+                        {
+                            toVisit.Enqueue(vertex);
+                            memory.Add(vertex, curVert);
+                        }
+                    }
+                    visitedCount++;
+                    visited[curVert] = true; // tandain udah divisit
+                }
+            } while (visitedCount < totalVerts && !found);
+
+            // menambahkan sudut dari target sampai entry
+            if (found)
+            {
+                curVert = target;
+                do
+                {
+                    res.Add(curVert);
+                    curVert = memory[curVert];
+                } while (curVert != entry);
+                res.Add(curVert);
+            }
+
+            return res;
+        }
+        public List<Vertex> DFS(Vertex entryNode, Vertex target)
+        {
+            Stack<Vertex> vertices;
+            List<Vertex> res = new();
+            return res;
+        }
+        public List<Vertex> IDS(Vertex entryNode, Vertex target, uint depth)
+        {
+            List<Vertex> res = new();
+            return res;
+        }
+        public List<Vertex> DLS(Vertex entryNode, Vertex target)
+        {
+            List<Vertex> res = new();
+            return res;
         }
     }
 }

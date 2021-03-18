@@ -84,6 +84,23 @@ namespace HanyaKipas
                 SilumanForm.Controls.Add(GraphViewer);
                 SilumanForm.ResumeLayout();
                 SilumanForm.Show();
+
+                List<Node> nodes;
+                if (!Node1.Text.Equals(Node2.Text))
+                {
+                    nodes = g1.BFS(new Node(Node1.Text), new Node(Node2.Text));
+                }
+                else
+                {
+                    nodes = new();
+                    nodes.Add(new Node(Node1.Text));
+                }
+
+                for (int i = 1; i <= nodes.Count; ++i)
+                {
+                    Node node = nodes[^i];
+                    Debug.WriteLine(node.GetInfo());
+                }
             }
             catch
             {
