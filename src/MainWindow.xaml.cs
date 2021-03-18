@@ -65,8 +65,12 @@ namespace HanyaKipas
                         cek = true;
                     }
                 }
-                graph.FindNode(Node1.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Aqua;
-                graph.FindNode(Node2.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+                try
+                {
+                    graph.FindNode(Node1.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Aqua;
+                    graph.FindNode(Node2.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+                }
+                catch { }
 
                 SilumanForm.SuspendLayout();
                 try
@@ -81,12 +85,22 @@ namespace HanyaKipas
                 SilumanForm.ResumeLayout();
                 SilumanForm.Show();
             }
-            catch { }
+            catch
+            {
+                System.Windows.MessageBox.Show("Graf belum dipilih.");
+            }
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             // Create OpenFileDialog
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+            // Hapus item-item dari combobox Node1 dan Node2 ketika mau dimasukkan file
+            Node1.Items.Clear();
+            Node2.Items.Clear();
+            // Set text di combo box
+            Node1.Text = "Choose A Node...";
+            Node2.Text = "Choose A Node...";
 
             // Set filter for file extension and default file extension
             dlg.DefaultExt = ".txt";
@@ -100,7 +114,7 @@ namespace HanyaKipas
             {
                 // Open document
                 string[] filePath = dlg.FileName.Split("\\");
-                Label2.Content = filePath[filePath.Length-1];
+                Label2.Content = filePath[^1]; // sama aja [-1] di Python
                 p = new(dlg.FileName);
             }
 

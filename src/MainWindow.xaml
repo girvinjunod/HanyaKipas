@@ -8,10 +8,9 @@
         xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         xmlns:local="clr-namespace:HanyaKipas"
         mc:Ignorable="d"
-        Title="Hanya Kipas" 
+        Title="Hanya Kipas"
         Width="{x:Static SystemParameters.PrimaryScreenWidth}"
         Height="{x:Static SystemParameters.PrimaryScreenHeight}"
-        Icon="D:\Kuliah\Semester4\Strategi Algoritma\Tubes\HanyaKipas\src\img\IMG.ico" ResizeMode="CanResize" WindowState="Maximized" WindowStartupLocation="CenterScreen" Topmost="True" WindowStyle="SingleBorderWindow"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             TextElement.FontWeight="Regular"
             TextElement.FontSize="13"
@@ -39,7 +38,7 @@
         </WindowsFormsHost>
         <Image HorizontalAlignment="Left" VerticalAlignment="Top"  Width="500" Height="131" Margin="96,50,0,0" Grid.Column="1">
             <Image.Source>
-                <BitmapImage DecodePixelWidth="600" UriSource="D:\Kuliah\Semester4\Strategi Algoritma\Tubes\HanyaKipas\src\img\Tulisan.png"></BitmapImage>
+                <BitmapImage DecodePixelWidth="600" UriSource="img\Tulisan.png"></BitmapImage>
             </Image.Source>
         </Image>
         <Label Content="File Graph : " Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="25" Margin="58,223,0,0" VerticalAlignment="Top" Width="81" FontSize="14" FontWeight="Bold"/>
