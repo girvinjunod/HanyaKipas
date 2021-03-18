@@ -23,7 +23,7 @@ namespace HanyaKipas
     public partial class MainWindow : Window
     {
         Parser p;
-        bool cekk = false;
+        Graph g1;
         public MainWindow()
         {
             InitializeComponent();
@@ -38,50 +38,49 @@ namespace HanyaKipas
 
             Boolean cek = true;
 
-            p.Parse();
-            Graph g1 = p.HasilParse;
-            g1.Print();
-
-            //create the graph content
-            foreach(KeyValuePair<Node, LinkedList<Node>> entry in g1.GetAdjList())
-            {
-                foreach (Node vert in entry.Value)
-                {
-                    if (graph.EdgeCount != 0)
-                    {
-                        foreach (Microsoft.Msagl.Drawing.Edge sisi in graph.Edges)
-                        {
-                            if ((sisi.Target == entry.Key.GetInfo() && sisi.Source == vert.GetInfo()) || ((sisi.Source == entry.Key.GetInfo() && sisi.Target == vert.GetInfo())))
-                            {
-                                cek = false;
-                                break;
-                            }
-                        }
-                    }
-                    if (cek)
-                    {
-                        graph.AddEdge(entry.Key.GetInfo(), vert.GetInfo()).Attr.ArrowheadAtTarget = Microsoft.Msagl.Drawing.ArrowStyle.None;
-                    }
-                    cek = true;
-                }
-            }
-
-            //SilumanForm.Dispose();
-            SilumanForm.SuspendLayout();
             try
             {
-                SilumanForm.Controls.RemoveAt(0);
+                g1.Print();
+
+                //create the graph content
+                foreach (KeyValuePair<Node, LinkedList<Node>> entry in g1.GetAdjList())
+                {
+                    foreach (Node vert in entry.Value)
+                    {
+                        if (graph.EdgeCount != 0)
+                        {
+                            foreach (Microsoft.Msagl.Drawing.Edge sisi in graph.Edges)
+                            {
+                                if ((sisi.Target == entry.Key.GetInfo() && sisi.Source == vert.GetInfo()) || ((sisi.Source == entry.Key.GetInfo() && sisi.Target == vert.GetInfo())))
+                                {
+                                    cek = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (cek)
+                        {
+                            graph.AddEdge(entry.Key.GetInfo(), vert.GetInfo()).Attr.ArrowheadAtTarget = Microsoft.Msagl.Drawing.ArrowStyle.None;
+                        }
+                        cek = true;
+                    }
+                }
+
+                SilumanForm.SuspendLayout();
+                try
+                {
+                    SilumanForm.Controls.RemoveAt(0);
+                }
+                catch { }
+                //bind the graph to the viewer
+                GraphViewer.Graph = graph;
+                GraphViewer.Dock = DockStyle.Fill;
+                SilumanForm.Controls.Add(GraphViewer);
+                SilumanForm.ResumeLayout();
+                SilumanForm.Show();
             }
             catch { }
-            //bind the graph to the viewer
-            GraphViewer.Graph = graph;
-            GraphViewer.Dock = DockStyle.Fill;
-            SilumanForm.Controls.Add(GraphViewer);
-            
-            SilumanForm.ResumeLayout();
-            SilumanForm.Show();
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             // Create OpenFileDialog
@@ -102,14 +101,21 @@ namespace HanyaKipas
                 Label2.Content = filePath[filePath.Length-1];
                 p = new(dlg.FileName);
             }
+
+            try
+            {
+                p.Parse();
+                g1 = p.HasilParse;
+                foreach (KeyValuePair<Node, LinkedList<Node>> entry in g1.GetAdjList())
+                {
+                    Node1.Items.Add(entry.Key.GetInfo());
+                    Node2.Items.Add(entry.Key.GetInfo());
+                }
+            }
+            catch { }
         }
         private void Window_Loaded(object sender, RoutedEventArgs e) {}
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            cekk = true;
-            
-        }
     }
 }
 

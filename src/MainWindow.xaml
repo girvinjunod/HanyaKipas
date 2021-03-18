@@ -1,4 +1,5 @@
 ﻿<Window x:Name="Demon" x:Class="HanyaKipas.MainWindow"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,19 +8,49 @@
         xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         xmlns:local="clr-namespace:HanyaKipas"
         mc:Ignorable="d"
-        Title="Hanya Kipas" Height="450" Width="820">
-    <Grid>
+        Title="Hanya Kipas" 
+        Width="{x:Static SystemParameters.PrimaryScreenWidth}"
+        Height="1074"
+        Icon="D:\Kuliah\Semester4\Strategi Algoritma\Tubes\HanyaKipas\src\IMG (1).ico" ResizeMode="CanMinimize" WindowState="Maximized" WindowStartupLocation="CenterScreen" Topmost="True" WindowStyle="SingleBorderWindow"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+            TextElement.FontWeight="Regular"
+            TextElement.FontSize="13"
+            TextOptions.TextFormattingMode="Ideal"
+            TextOptions.TextRenderingMode="Auto"
+            Background="Gainsboro"
+            FontFamily="{StaticResource MaterialDesignFont}">
+    <Grid Margin="0,1,0,-1">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="811*"/>
-            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="475*"/>
+            <ColumnDefinition Width="1461*"/>
+            <ColumnDefinition Width="44*"/>
         </Grid.ColumnDefinitions>
-        <Button Margin="460,41,144,351" Click="btnClickP1">Mangga</Button>
-        <Button Content="Choose File" HorizontalAlignment="Left" Height="42" Margin="35,41,0,0" VerticalAlignment="Top" Width="91" Click="Button_Click"/>
-        <Label x:Name="Label2" Content="No File Selected" HorizontalAlignment="Left" Height="42" Margin="95,41,0,0" VerticalAlignment="Top" Width="151" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <WindowsFormsHost x:Name="FormHost" Margin="0,207,0,0" Grid.ColumnSpan="2">
+        <Grid.Background>
+            <ImageBrush ImageSource="/BG.jpg" Stretch="UniformToFill" ViewboxUnits="RelativeToBoundingBox" ViewportUnits="RelativeToBoundingBox" TileMode="None" />
+        </Grid.Background>
+        <Label Background="White" Grid.ColumnSpan="2" Margin="144,208,30,801" VerticalAlignment="Stretch" VerticalContentAlignment="Center">
+            <Button HorizontalAlignment="Left" Height="42" VerticalAlignment="Center" Width="91" Click="Button_Click" Background="#FF705F8F" BorderThickness="0,0,0,0">Choose</Button>
+        </Label>
+        <Label x:Name="Label2" Content="No File Selected" HorizontalAlignment="Left" Height="42" Margin="249,215,0,0" VerticalAlignment="Top" Width="171" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Grid.Column="1"/>
+        <Button  Click="btnClickP1" Grid.Column="1" Content="Search" FontWeight="Regular" Height="50" Margin="153,853,150,161" FontSize="18" />
+        <WindowsFormsHost x:Name="FormHost" Margin="1,10,0,493" Grid.Column="2">
             <!--<gv:GViewer x:Name="GraphViewer"/>-->
             <wf:MaskedTextBox x:Name="SilumanForm"></wf:MaskedTextBox>
         </WindowsFormsHost>
-        <Button Content="Nyah" HorizontalAlignment="Left" Height="71" Margin="210,103,0,0" VerticalAlignment="Top" Width="214" Click="Button_Click_1"/>
+        <Image Width="400" Height="200" Grid.ColumnSpan="2" Margin="30,10,30,854" d:IsLocked="True">
+            <Image.Source>
+                <BitmapImage DecodePixelWidth="600" UriSource="D:\Kuliah\Semester4\Strategi Algoritma\Tubes\HanyaKipas\src\img\Logopng.png"></BitmapImage>
+            </Image.Source>
+        </Image>
+        <Label Content="File Graph : " Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="25" Margin="58,223,0,0" VerticalAlignment="Top" Width="81" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Algoritma :" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="25" Margin="58,293,0,0" VerticalAlignment="Top" Width="81" FontSize="14" FontWeight="Bold"/>
+        <Label Background="White" Grid.ColumnSpan="2" Margin="144,278,30,731" VerticalContentAlignment="Center"/>
+        <RadioButton Content="DFS" HorizontalAlignment="Left" Height="53" VerticalAlignment="Top" Width="59" ClickMode="Press" FontSize="14" VerticalContentAlignment="Center" Grid.ColumnSpan="2" Margin="153,278,0,0"/>
+        <RadioButton Content="BFS" Grid.Column="1" HorizontalAlignment="Left" Height="53" VerticalAlignment="Top" Width="59" Margin="287,279,0,0" ClickMode="Press" FontSize="14"/>
+        <Label Content="Choose Account :" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="25" Margin="58,362,0,0" VerticalAlignment="Top" Width="140" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Explore Friends with :" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="25" Margin="58,411,0,0" VerticalAlignment="Top" Width="154" FontSize="14" FontWeight="Bold"/>
+        <ComboBox x:Name="Node1" Grid.ColumnSpan="2" IsEditable="True" IsReadOnly="True" Text="Choose A Node" HorizontalAlignment="Left" Height="25" Margin="230,362,0,0" VerticalAlignment="Top" Width="200" Background="White"></ComboBox>
+        <ComboBox x:Name="Node2" Grid.ColumnSpan="2" IsEditable="True" IsReadOnly="True" Text="Choose A Node" HorizontalAlignment="Left" Height="25" Margin="230,411,0,0" VerticalAlignment="Top" Width="200" Background="White"/>
     </Grid>
 </Window>
