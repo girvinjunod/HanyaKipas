@@ -123,5 +123,16 @@ namespace HanyaKipas.Lib
         {
             return adjList;
         }
+
+        /// <summary>
+        /// Menghapus semua isi (sudut dan sisi) graf
+        /// </summary>
+        public void Clear()
+        {
+            foreach (KeyValuePair<Vertex, LinkedList<Vertex>> kvp in adjList)
+            {
+                adjList.Remove(kvp.Key);
+            }
+        }
     }
 }

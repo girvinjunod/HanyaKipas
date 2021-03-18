@@ -1,4 +1,3 @@
-using HanyaKipas.Lib;
 using System.Linq;
 
 namespace HanyaKipas.Lib
@@ -16,6 +15,7 @@ namespace HanyaKipas.Lib
 
         public void Parse()
         {
+            HasilParse.Clear();
             string[] lines = System.IO.File.ReadAllLines(@path);
             foreach (string line in lines.Skip(1))
             {
