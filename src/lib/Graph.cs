@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using System.Diagnostics;
+using System.Linq;
 
 namespace HanyaKipas.Lib
 {
@@ -192,12 +193,54 @@ namespace HanyaKipas.Lib
 
             return res;
         }
-        public List<Vertex> DFS(Vertex entryNode, Vertex target)
+        public List<Vertex> DFS(Vertex entryNode, Vertex target, List<Vertex> nodelist)
         {
-            Stack<Vertex> vertices;
-            List<Vertex> res = new();
-            return res;
+            //Stack<Vertex> vertices;
+            //List<Vertex> res = new();
+
+            Vertex curVert = entryNode;
+            List<Vertex> result = new();
+            Debug.WriteLine("Curvert :");
+            Debug.WriteLine(curVert.GetInfo());
+            Debug.WriteLine("target : ");
+            Debug.WriteLine(target.GetInfo());
+            if (curVert.GetInfo() == target.GetInfo())
+            { //basis
+                nodelist.Add(curVert);
+                //nodelist = nodelist.Distinct().ToList();
+                return nodelist;
+            }
+            nodelist.Add(curVert);
+            //Debug.WriteLine(curVert.GetInfo());
+            foreach (Vertex vertex in adjList[curVert]) //rekursi
+            {
+                if (!nodelist.Contains(vertex))
+                {
+                    //nodelist.Clear();
+                    //nodelist.Add(curVert);
+                    nodelist.AddRange(DFS(vertex, target, nodelist));
+                    //nodelist = nodelist.Distinct().ToList();
+                    result = nodelist;
+                    //return nodelist;
+                }
+            }
+            ;
+            //Debug.WriteLine("HAIIIIIIIIIIIIIIIII");
+            //nodelist = nodelist.Distinct().ToList();
+            nodelist.Remove(curVert);
+            result = result.Distinct().ToList();
+            return result;
+            //nodelist.Remove(curVert);
+            
+
+
         }
+
+
+
+        //return res;
+
+    } /*
         public List<Vertex> IDS(Vertex entryNode, Vertex target, uint depth)
         {
             List<Vertex> res = new();
@@ -208,5 +251,5 @@ namespace HanyaKipas.Lib
             List<Vertex> res = new();
             return res;
         }
-    }
+    */
 }

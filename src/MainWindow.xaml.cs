@@ -88,19 +88,25 @@ namespace HanyaKipas
                 List<Node> nodes;
                 if (!Node1.Text.Equals(Node2.Text))
                 {
-                    nodes = g1.BFS(new Node(Node1.Text), new Node(Node2.Text));
+                    nodes = g1.DFS(new Node(Node1.Text), new Node(Node2.Text),new List<Node>());
+                    
+                    foreach(Node node in nodes)
+                    {
+                        Debug.WriteLine(node.GetInfo());
+                    }
                 }
                 else
                 {
                     nodes = new();
                     nodes.Add(new Node(Node1.Text));
                 }
-
+                /*
                 for (int i = 1; i <= nodes.Count; ++i)
                 {
-                    Node node = nodes[^i];
-                    Debug.WriteLine(node.GetInfo());
+                    //Node node = nodes[^i];
+                    //Debug.WriteLine(node.GetInfo());
                 }
+                */
             }
             catch
             {
