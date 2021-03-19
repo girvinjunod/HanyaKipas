@@ -193,44 +193,85 @@ namespace HanyaKipas.Lib
 
             return res;
         }
-        public List<Vertex> DFS(Vertex entryNode, Vertex target, List<Vertex> nodelist)
+        public List<Vertex> DFS(Vertex entryNode, Vertex target)
         {
             //Stack<Vertex> vertices;
             //List<Vertex> res = new();
-
+            /*
             Vertex curVert = entryNode;
-            List<Vertex> result = new();
+            //List<Vertex> result = new();
             Debug.WriteLine("Curvert :");
             Debug.WriteLine(curVert.GetInfo());
             Debug.WriteLine("target : ");
             Debug.WriteLine(target.GetInfo());
+            nodelist.Add(curVert);
             if (curVert.GetInfo() == target.GetInfo())
             { //basis
-                nodelist.Add(curVert);
+                //nodelist.Add(curVert);
                 //nodelist = nodelist.Distinct().ToList();
-                return nodelist;
+                Debug.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA : ");
+                path.Add(curVert);
+                return path;
             }
-            nodelist.Add(curVert);
             //Debug.WriteLine(curVert.GetInfo());
             foreach (Vertex vertex in adjList[curVert]) //rekursi
             {
-                if (!nodelist.Contains(vertex))
+                if (!nodelist.Contains(vertex) && !path.Contains(vertex))
                 {
+                    path.Add(curVert);
+                    List<Vertex> result = DFS(vertex, target, nodelist,path);
                     //nodelist.Clear();
                     //nodelist.Add(curVert);
-                    nodelist.AddRange(DFS(vertex, target, nodelist));
+                    //path.Add(curVert);
+                    //nodelist.AddRange(DFS(vertex, target, nodelist));
                     //nodelist = nodelist.Distinct().ToList();
-                    result = nodelist;
+                    //result = nodelist;
                     //return nodelist;
                 }
-            }
-            ;
+            } 
+            */
+
+            //;
             //Debug.WriteLine("HAIIIIIIIIIIIIIIIII");
             //nodelist = nodelist.Distinct().ToList();
-            nodelist.Remove(curVert);
-            result = result.Distinct().ToList();
-            return result;
             //nodelist.Remove(curVert);
+            //result = result.Distinct().ToList();
+            //return result;
+            //return path;
+            //nodelist.Remove(curVert);
+            Stack<Vertex> toVisit = new();
+            List<Vertex> res = new();
+            Vertex curVert = entryNode;
+
+            visited = new();
+            foreach (KeyValuePair<Vertex, LinkedList<Vertex>> kvp in adjList)
+            {
+                visited.Add(kvp.Key, false);
+            }
+
+            // basis
+            if (curVert.Equals(target))
+            {
+                res.Add(curVert);
+                return res;
+            }
+            else if (visited[curVert])
+            {
+                return res; // list kosong
+            }
+
+            // rekursi
+            // tambah vertex tetangga ke stack yang akan dikunjungi
+            foreach (Vertex vertex in adjList[curVert])
+            {
+                if (!visited[vertex])
+                {
+                    //DFS(vertex, target);
+                    res.AddRange(DFS(vertex,target));
+                    toVisit.Push(vertex);
+                }
+            }
+            return res;
             
 
 

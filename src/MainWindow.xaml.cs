@@ -41,7 +41,21 @@ namespace HanyaKipas
             try
             {
                 g1.Print();
+                List<Node> nodes;
+                if (!Node1.Text.Equals(Node2.Text))
+                {
+                    nodes = g1.BFS(new Node(Node1.Text), new Node(Node2.Text));
 
+                    foreach (Node node in nodes)
+                    {
+                        Debug.WriteLine(node.GetInfo());
+                    }
+                }
+                else
+                {
+                    nodes = new();
+                    nodes.Add(new Node(Node1.Text));
+                }
                 //create the graph content
                 foreach (KeyValuePair<Node, LinkedList<Node>> entry in g1.GetAdjList())
                 {
@@ -53,6 +67,15 @@ namespace HanyaKipas
                             {
                                 if ((sisi.Target == entry.Key.GetInfo() && sisi.Source == vert.GetInfo()) || ((sisi.Source == entry.Key.GetInfo() && sisi.Target == vert.GetInfo())))
                                 {
+                                    for (int i = 0; i < nodes.Count - 1; i++)
+                                    {
+                                        if ((nodes[i].GetInfo() == sisi.Target && nodes[i + 1].GetInfo() == sisi.Source)
+                                            || (nodes[i].GetInfo() == sisi.Source && nodes[i + 1].GetInfo() == sisi.Target))
+                                        {
+                                            sisi.Attr.Color = new Microsoft.Msagl.Drawing.Color(163, 191, 69);
+                                            sisi.Attr.LineWidth = 2;
+                                        }
+                                    }
                                     cek = false;
                                     break;
                                 }
@@ -67,6 +90,10 @@ namespace HanyaKipas
                 }
                 try
                 {
+                    if (Node1.Text == Node2.Text)
+                    {
+                        graph.FindNode(Node1.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Beige;
+                    }
                     graph.FindNode(Node1.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Aqua;
                     graph.FindNode(Node2.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
                 }
@@ -85,21 +112,14 @@ namespace HanyaKipas
                 SilumanForm.ResumeLayout();
                 SilumanForm.Show();
 
-                List<Node> nodes;
-                if (!Node1.Text.Equals(Node2.Text))
+                foreach (Node fill in nodes)
                 {
-                    nodes = g1.DFS(new Node(Node1.Text), new Node(Node2.Text),new List<Node>());
-                    
-                    foreach(Node node in nodes)
+                    if (fill.GetInfo() != Node1.Text && fill.GetInfo() != Node2.Text)
                     {
-                        Debug.WriteLine(node.GetInfo());
+                        graph.FindNode(fill.GetInfo()).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Yellow;
                     }
                 }
-                else
-                {
-                    nodes = new();
-                    nodes.Add(new Node(Node1.Text));
-                }
+
                 /*
                 for (int i = 1; i <= nodes.Count; ++i)
                 {

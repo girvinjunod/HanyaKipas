@@ -32,11 +32,11 @@
         <Button HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="91" Click="Button_Click" Background="#FF705F8F" BorderThickness="0,0,0,0" Grid.ColumnSpan="2" Margin="161,214,0,0">Choose</Button>
         <Label x:Name="Label2" Content="No File Selected" HorizontalAlignment="Left" Height="42" Margin="252,215,0,0" VerticalAlignment="Top" Width="171" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Grid.Column="1"/>
         <Button HorizontalAlignment="Center" VerticalAlignment="Top" Click="btnClickP1" Content="Search" FontWeight="Regular" Width="200" Height="50" Margin="0,607,0,0" FontSize="18" Grid.Column="1" />
-        <WindowsFormsHost x:Name="FormHost" Margin="1,10,0,328" Grid.Column="2">
+        <WindowsFormsHost x:Name="FormHost" Margin="1,10,22,328" Grid.Column="2">
             <!--<gv:GViewer x:Name="GraphViewer"/>-->
             <wf:MaskedTextBox x:Name="SilumanForm"></wf:MaskedTextBox>
         </WindowsFormsHost>
-        <Image HorizontalAlignment="Left" VerticalAlignment="Top"  Width="500" Height="131" Margin="96,50,0,0" Grid.Column="1">
+        <Image HorizontalAlignment="Left" VerticalAlignment="Top"  Width="500" Height="130" Margin="109,46,0,0" Grid.Column="1">
             <Image.Source>
                 <BitmapImage DecodePixelWidth="600" UriSource="img\Tulisan.png"></BitmapImage>
             </Image.Source>
