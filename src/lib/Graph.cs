@@ -9,7 +9,6 @@ namespace HanyaKipas.Lib
     public class Graph
     {
         private Dictionary<Vertex, LinkedList<Vertex>> adjList = new();
-        private Dictionary<Vertex, bool> visited;
         /// <summary>
         /// Konstuktor graf tanpa argumen (Hanya menginisialisasi dictionary)
         /// </summary>
@@ -137,31 +136,40 @@ namespace HanyaKipas.Lib
             }
         }
 
+        // Searching!
+        /// <summary>
+        /// Mencari sudut-sudut yang harus dilalui untuk mencapai suatu sudut
+        /// dari sudut lain menggunakan metode BFS
+        /// </summary>
+        /// <param name="entry">sudut asal</param>
+        /// <param name="target">sudut tujuan</param>
+        /// <returns>list vertex (sudut) yang harus dilalui</returns>
         public List<Vertex> BFS(Vertex entry, Vertex target)
         {
             Queue<Vertex> toVisit = new(); // vertex yang akan dikunjungi
-            Dictionary<Vertex, Vertex> memory = new(); // vertex pendahulu dari suatu vertex
+            // mencatat vertex pendahulu dari suatu vertex
+            Dictionary<Vertex, Vertex> memory = new();
+            Dictionary<Vertex, bool> visited;
             List<Vertex> res = new(); // menyimpan vertex hasil
             Vertex curVert; // vertex yang sedang dikunjungi
-            int visitedCount = 0; // banyak vertex yang sudah dikunjngi
-            int totalVerts = adjList.Count; // banyak vertex pada graf
-            bool found;
+            bool found = target == entry;
 
             visited = new();
             foreach (KeyValuePair<Vertex, LinkedList<Vertex>> kvp in adjList)
             {
                 visited.Add(kvp.Key, false);
             }
+            memory.Add(entry, entry);
 
             // akan divisit node entry
             toVisit.Enqueue(entry);
-            do
+            while (toVisit.Count > 0 && !found)
             {
-                // tentuin sudut yang lagi divisit lalu catat sudutnya
+                // tentuin sudut yang akan divisit
                 curVert = toVisit.Dequeue();
                 // apakah sudut sudah ketemu?
                 found = target.Equals(curVert);
-                // kalau belum divisit dan belum ketemu
+                // kalau belum divisit dan belum ketemu, visit sudutnya
                 if (!visited[curVert] && !found)
                 {
                     // iterasi semua vertex tetangga
@@ -174,10 +182,9 @@ namespace HanyaKipas.Lib
                             memory.Add(vertex, curVert);
                         }
                     }
-                    visitedCount++;
                     visited[curVert] = true; // tandain udah divisit
                 }
-            } while (visitedCount < totalVerts && !found);
+            }
 
             // menambahkan sudut dari target sampai entry
             if (found)
@@ -187,20 +194,26 @@ namespace HanyaKipas.Lib
                 {
                     res.Add(curVert);
                     curVert = memory[curVert];
-                } while (curVert != entry);
+                } while (!curVert.Equals(entry));
                 res.Add(curVert);
             }
 
             return res;
         }
+        /// <summary>
+        /// Mencari sudut-sudut yang harus dilalui untuk mencapai suatu sudut
+        /// dari sudut lain menggunakan metode DFS
+        /// </summary>
+        /// <param name="entry">sudut asal</param>
+        /// <param name="target">sudut tujuan</param>
+        /// <returns>list vertex (sudut) yang harus dilalui</returns>
         public List<Vertex> DFS(Vertex entry, Vertex target)
         {
-            Stack<Vertex> verStack = new Stack<Vertex>();
-            List<Vertex> res = new List<Vertex>();
-            // List<Vertex> terpop = new List<Vertex>();
+            Dictionary<Vertex, bool> visited;
+            Stack<Vertex> verStack = new();
+            List<Vertex> res = new();
             Dictionary<Vertex, Vertex> memory = new();
             Vertex popped;
-            Vertex curVert;
             Vertex previous = entry;
             bool found = false;
 
@@ -211,72 +224,48 @@ namespace HanyaKipas.Lib
             }
 
             verStack.Push(entry);
-
             while (!found && verStack.Count > 0)
             {
                 uint jmlMsk = 0;
                 popped = verStack.Pop(); // curVert
-                // terpop.Add(popped);
-                //memory.Add(popped, prev);
-                Debug.WriteLine("Pop " + popped.GetInfo());
                 if (popped.Equals(target)) // kalo udah ketemu
                 {
                     found = true;
                     memory.Add(popped, previous);
-                    break;
                 }
-
-                // masukin tetangga2nya ke stack
-                for (LinkedListNode<Vertex> vn = adjList[popped].Last; vn != null; vn = vn.Previous)
+                else
                 {
-                    Vertex vertex = vn.Value;
-
-                    if (!visited[vertex])
+                    // masukin tetangga2nya ke stack
+                    for (LinkedListNode<Vertex> vn = adjList[popped].Last;
+                         vn != null;
+                         vn = vn.Previous)
                     {
-                        verStack.Push(vertex);
-                        jmlMsk++;
+                        Vertex vertex = vn.Value;
+
+                        if (!visited[vertex])
+                        {
+                            verStack.Push(vertex);
+                            jmlMsk++;
+                        }
                     }
-                }
-                visited[popped] = true; // tandain udah divisit
-                memory.Add(popped, previous);
-                if (jmlMsk > 0)
-                {
-                    previous = popped;
-                }
-                else // harus backtrack
-                {
-                    previous = memory[previous];
+                    visited[popped] = true; // tandain udah divisit
+                    memory.Add(popped, previous);
+                    previous = jmlMsk > 0 ? popped : memory[previous];
                 }
             }
 
             if (found)
             {
-                curVert = target;
+                popped = target;
                 do
                 {
-                    res.Add(curVert);
-                    curVert = memory[curVert];
-                } while (curVert != entry);
-                res.Add(curVert);
+                    res.Add(popped);
+                    popped = memory[popped];
+                } while (!popped.Equals(entry));
+                res.Add(popped);
             }
 
             return res;
         }
-
-
-
-        //return res;
-
-    } /*
-        public List<Vertex> IDS(Vertex entryNode, Vertex target, uint depth)
-        {
-            List<Vertex> res = new();
-            return res;
-        }
-        public List<Vertex> DLS(Vertex entryNode, Vertex target)
-        {
-            List<Vertex> res = new();
-            return res;
-        }
-    */
+    }
 }

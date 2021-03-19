@@ -42,20 +42,8 @@ namespace HanyaKipas
             {
                 g1.Print();
                 List<Node> nodes;
-                if (!Node1.Text.Equals(Node2.Text))
-                {
-                    nodes = g1.DFS(new Node(Node1.Text), new Node(Node2.Text));
+                nodes = g1.BFS(new Node(Node1.Text), new Node(Node2.Text));
 
-                    foreach (Node node in nodes)
-                    {
-                        Debug.WriteLine(node.GetInfo());
-                    }
-                }
-                else
-                {
-                    nodes = new();
-                    nodes.Add(new Node(Node1.Text));
-                }
                 //create the graph content
                 foreach (KeyValuePair<Node, LinkedList<Node>> entry in g1.GetAdjList())
                 {
@@ -122,14 +110,6 @@ namespace HanyaKipas
                         graph.FindNode(fill.GetInfo()).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Yellow;
                     }
                 }
-
-                /*
-                for (int i = 1; i <= nodes.Count; ++i)
-                {
-                    //Node node = nodes[^i];
-                    //Debug.WriteLine(node.GetInfo());
-                }
-                */
             }
             catch
             {
@@ -176,7 +156,7 @@ namespace HanyaKipas
             }
             catch { }
         }
-        private void Window_Loaded(object sender, RoutedEventArgs e) {}
+        private void Window_Loaded(object sender, RoutedEventArgs e) { }
 
     }
 }
