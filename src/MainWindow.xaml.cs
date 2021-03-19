@@ -44,7 +44,7 @@ namespace HanyaKipas
                 List<Node> nodes;
                 if (!Node1.Text.Equals(Node2.Text))
                 {
-                    nodes = g1.BFS(new Node(Node1.Text), new Node(Node2.Text));
+                    nodes = g1.DFS(new Node(Node1.Text), new Node(Node2.Text));
 
                     foreach (Node node in nodes)
                     {
@@ -92,10 +92,13 @@ namespace HanyaKipas
                 {
                     if (Node1.Text == Node2.Text)
                     {
-                        graph.FindNode(Node1.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Beige;
+                        graph.FindNode(Node1.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.BlanchedAlmond;
                     }
-                    graph.FindNode(Node1.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Aqua;
-                    graph.FindNode(Node2.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+                    else
+                    {
+                        graph.FindNode(Node1.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Aqua;
+                        graph.FindNode(Node2.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+                    }
                 }
                 catch { }
 

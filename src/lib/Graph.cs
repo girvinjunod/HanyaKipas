@@ -193,55 +193,16 @@ namespace HanyaKipas.Lib
 
             return res;
         }
-        public List<Vertex> DFS(Vertex entryNode, Vertex target)
+        public List<Vertex> DFS(Vertex entry, Vertex target)
         {
-            //Stack<Vertex> vertices;
-            //List<Vertex> res = new();
-            /*
-            Vertex curVert = entryNode;
-            //List<Vertex> result = new();
-            Debug.WriteLine("Curvert :");
-            Debug.WriteLine(curVert.GetInfo());
-            Debug.WriteLine("target : ");
-            Debug.WriteLine(target.GetInfo());
-            nodelist.Add(curVert);
-            if (curVert.GetInfo() == target.GetInfo())
-            { //basis
-                //nodelist.Add(curVert);
-                //nodelist = nodelist.Distinct().ToList();
-                Debug.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA : ");
-                path.Add(curVert);
-                return path;
-            }
-            //Debug.WriteLine(curVert.GetInfo());
-            foreach (Vertex vertex in adjList[curVert]) //rekursi
-            {
-                if (!nodelist.Contains(vertex) && !path.Contains(vertex))
-                {
-                    path.Add(curVert);
-                    List<Vertex> result = DFS(vertex, target, nodelist,path);
-                    //nodelist.Clear();
-                    //nodelist.Add(curVert);
-                    //path.Add(curVert);
-                    //nodelist.AddRange(DFS(vertex, target, nodelist));
-                    //nodelist = nodelist.Distinct().ToList();
-                    //result = nodelist;
-                    //return nodelist;
-                }
-            } 
-            */
-
-            //;
-            //Debug.WriteLine("HAIIIIIIIIIIIIIIIII");
-            //nodelist = nodelist.Distinct().ToList();
-            //nodelist.Remove(curVert);
-            //result = result.Distinct().ToList();
-            //return result;
-            //return path;
-            //nodelist.Remove(curVert);
-            Stack<Vertex> toVisit = new();
-            List<Vertex> res = new();
-            Vertex curVert = entryNode;
+            Stack<Vertex> verStack = new Stack<Vertex>();
+            List<Vertex> res = new List<Vertex>();
+            // List<Vertex> terpop = new List<Vertex>();
+            Dictionary<Vertex, Vertex> memory = new();
+            Vertex popped;
+            Vertex curVert;
+            Vertex previous = entry;
+            bool found = false;
 
             visited = new();
             foreach (KeyValuePair<Vertex, LinkedList<Vertex>> kvp in adjList)
@@ -249,32 +210,57 @@ namespace HanyaKipas.Lib
                 visited.Add(kvp.Key, false);
             }
 
-            // basis
-            if (curVert.Equals(target))
-            {
-                res.Add(curVert);
-                return res;
-            }
-            else if (visited[curVert])
-            {
-                return res; // list kosong
-            }
+            verStack.Push(entry);
 
-            // rekursi
-            // tambah vertex tetangga ke stack yang akan dikunjungi
-            foreach (Vertex vertex in adjList[curVert])
+            while (!found && verStack.Count > 0)
             {
-                if (!visited[vertex])
+                uint jmlMsk = 0;
+                popped = verStack.Pop(); // curVert
+                // terpop.Add(popped);
+                //memory.Add(popped, prev);
+                Debug.WriteLine("Pop " + popped.GetInfo());
+                if (popped.Equals(target)) // kalo udah ketemu
                 {
-                    //DFS(vertex, target);
-                    res.AddRange(DFS(vertex,target));
-                    toVisit.Push(vertex);
+                    found = true;
+                    memory.Add(popped, previous);
+                    break;
+                }
+
+                // masukin tetangga2nya ke stack
+                for (LinkedListNode<Vertex> vn = adjList[popped].Last; vn != null; vn = vn.Previous)
+                {
+                    Vertex vertex = vn.Value;
+
+                    if (!visited[vertex])
+                    {
+                        verStack.Push(vertex);
+                        jmlMsk++;
+                    }
+                }
+                visited[popped] = true; // tandain udah divisit
+                memory.Add(popped, previous);
+                if (jmlMsk > 0)
+                {
+                    previous = popped;
+                }
+                else // harus backtrack
+                {
+                    previous = memory[previous];
                 }
             }
+
+            if (found)
+            {
+                curVert = target;
+                do
+                {
+                    res.Add(curVert);
+                    curVert = memory[curVert];
+                } while (curVert != entry);
+                res.Add(curVert);
+            }
+
             return res;
-            
-
-
         }
 
 

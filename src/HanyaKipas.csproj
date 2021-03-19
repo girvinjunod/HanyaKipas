@@ -11,6 +11,8 @@
 
   <ItemGroup>
     <None Remove="BG.jpg" />
+    <None Remove="img\BG.jpg" />
+    <None Remove="img\IMG.ico" />
     <None Remove="img\Tulisan.png" />
   </ItemGroup>
 
@@ -24,6 +26,12 @@
 
   <ItemGroup>
     <Resource Include="BG.jpg" />
+    <Resource Include="img\BG.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\IMG.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="img\Tulisan.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
