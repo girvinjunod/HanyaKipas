@@ -32,7 +32,7 @@
         <Button HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="91" Click="Button_Click" Background="#FF705F8F" BorderThickness="0,0,0,0" Grid.ColumnSpan="2" Margin="161,214,0,0">Choose</Button>
         <Label x:Name="Label2" Content="No File Selected" HorizontalAlignment="Left" Height="42" Margin="252,215,0,0" VerticalAlignment="Top" Width="171" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Grid.Column="1"/>
         <Button HorizontalAlignment="Center" VerticalAlignment="Top" Click="btnClickP1" Content="Search" FontWeight="Regular" Width="200" Height="50" Margin="0,607,0,0" FontSize="18" Grid.Column="1" />
-        <WindowsFormsHost x:Name="FormHost" Margin="1,10,22,328" Grid.Column="2">
+        <WindowsFormsHost x:Name="FormHost" Margin="1,10,22,462" Grid.Column="2">
             <!--<gv:GViewer x:Name="GraphViewer"/>-->
             <wf:MaskedTextBox x:Name="SilumanForm"></wf:MaskedTextBox>
         </WindowsFormsHost>
@@ -44,8 +44,8 @@
         <Label Content="File Graph : " Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="25" Margin="58,223,0,0" VerticalAlignment="Top" Width="81" FontSize="14" FontWeight="Bold"/>
         <Label Content="Algoritma :" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="25" Margin="58,293,0,0" VerticalAlignment="Top" Width="81" FontSize="14" FontWeight="Bold"/>
         <Label HorizontalAlignment="Left" VerticalAlignment="Top" Background="White" Grid.ColumnSpan="2" Width="587" Height="54" Margin="151,278,0,0"  />
-        <RadioButton Content="DFS" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="53" VerticalAlignment="Top" Width="59" ClickMode="Press" FontSize="14" VerticalContentAlignment="Center"  Margin="166,278,0,0"/>
-        <RadioButton Content="BFS" Grid.Column="1" HorizontalAlignment="Left" Height="53" VerticalAlignment="Top" Width="59" Margin="300,279,0,0" ClickMode="Press" FontSize="14"/>
+        <RadioButton x:Name="DFSButton" Content="DFS" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="53" VerticalAlignment="Top" Width="59" ClickMode="Press" FontSize="14" VerticalContentAlignment="Center"  Margin="166,278,0,0"/>
+        <RadioButton x:Name="BFSButton" Content="BFS" Grid.Column="1" HorizontalAlignment="Left" Height="53" VerticalAlignment="Top" Width="59" Margin="300,279,0,0" ClickMode="Press" FontSize="14"/>
         <Label Content="Choose Account :" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="25" Margin="58,362,0,0" VerticalAlignment="Top" Width="140" FontSize="14" FontWeight="Bold"/>
         <Label Content="Explore Friends with :" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="25" Margin="58,411,0,0" VerticalAlignment="Top" Width="154" FontSize="14" FontWeight="Bold"/>
         <ComboBox x:Name="Node1" Grid.ColumnSpan="2" IsEditable="True" IsReadOnly="True" Text="Choose A Node" HorizontalAlignment="Left" Height="25" Margin="230,362,0,0" VerticalAlignment="Top" Width="200" Background="White"></ComboBox>

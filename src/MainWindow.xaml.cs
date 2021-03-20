@@ -41,11 +41,22 @@ namespace HanyaKipas
             try
             {
                 g1.Print();
-                List<Node> nodes;
-                Globals.nodelist = new(); //reset global variabel
-                Globals.dfsfound = false;
-                g1.DFS(new Node(Node1.Text), new Node(Node2.Text), new List<Node>());
-                nodes = Globals.nodelist;
+                List<Node> nodes = new();
+                if (DFSButton.IsChecked == true)
+                {
+                    Globals.nodelist = new(); //reset global variabel
+                    Globals.dfsfound = false;
+                    g1.DFS(new Node(Node1.Text), new Node(Node2.Text), new List<Node>());
+                    nodes = Globals.nodelist;
+                } else if(BFSButton.IsChecked == true)
+                {
+                    nodes = g1.BFS(new Node(Node1.Text), new Node(Node2.Text));
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show("Graf belum dipilih. Silahkan memilih Graf", "Error");
+                    return;
+                }
                 /*foreach (Node v in nodes)
                 {
                     Debug.WriteLine(v.GetInfo());
@@ -120,7 +131,7 @@ namespace HanyaKipas
             }
             catch
             {
-                System.Windows.MessageBox.Show("Graf belum dipilih.");
+                System.Windows.MessageBox.Show("Graf belum dipilih. Silahkan memilih Graf","Error");
             }
         }
         private void Button_Click(object sender, RoutedEventArgs e)
