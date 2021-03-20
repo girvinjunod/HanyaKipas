@@ -314,12 +314,26 @@ namespace HanyaKipas.Lib
                     }
                 }
             }
+            Debug.WriteLine("Debug Friend Rec");
             foreach (KeyValuePair<Vertex, int> kvp in countmutual) //buat debug
             {
                 Debug.WriteLine("Friend Recommendation: " + kvp.Key.GetInfo());
                 Debug.WriteLine("Mutual Friends: " + kvp.Value);
             }
             return countmutual;
+        }
+        public List<Vertex> MutualFriends(Vertex terpilih, Vertex Recommended)
+        {
+            List < Vertex> mutual = new();
+            foreach(Vertex tetangga in adjList[terpilih])
+            {
+                if (adjList[Recommended].Contains(tetangga))
+                {
+                    mutual.Add(tetangga);
+                }
+            }
+            return mutual;
+            
         }
 
         }

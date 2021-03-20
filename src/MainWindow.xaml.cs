@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -41,7 +42,18 @@ namespace HanyaKipas
             try
             {
                 g1.Print();
-                //g1.FriendRecommendation(new Node(Node1.Text));
+                Dictionary<Node, int> priend = g1.FriendRecommendation(new Node(Node1.Text));
+                //Node a = new Node(Node1.Text);
+                Debug.WriteLine("Debug Mutual friends");
+                foreach(KeyValuePair<Node, int> n in priend)
+                {
+                    List<Node> mutual = g1.MutualFriends(new Node(Node1.Text), n.Key);
+                    Debug.WriteLine("Mutual friend dari " + n.Key.GetInfo());
+                    foreach(Node aw in mutual)
+                    {
+                        Debug.WriteLine(aw.GetInfo());
+                    }
+                }
                 List<Node> nodes;
                 Globals.nodelist = new(); //reset global variabel
                 Globals.dfsfound = false;
