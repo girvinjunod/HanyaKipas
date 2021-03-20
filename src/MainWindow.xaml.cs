@@ -41,6 +41,18 @@ namespace HanyaKipas
 
             try // in case ada error di BFS/DFS, atau di tempat lainnya
             {
+                Dictionary<Node, int> priend = g1.FriendRecommendation(new Node(Node1.Text));
+                //Node a = new Node(Node1.Text);
+                Debug.WriteLine("Debug Mutual friends");
+                foreach (KeyValuePair<Node, int> n in priend)
+                {
+                    List<Node> mutual = g1.MutualFriends(new Node(Node1.Text), n.Key);
+                    Debug.WriteLine("Mutual friend dari " + n.Key.GetInfo());
+                    foreach (Node aw in mutual)
+                    {
+                        Debug.WriteLine(aw.GetInfo());
+                    }
+                }
                 List<Node> nodes;
                 if ((bool)RadioBFS.IsChecked)
                 {
