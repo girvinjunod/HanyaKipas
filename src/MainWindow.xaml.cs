@@ -42,7 +42,14 @@ namespace HanyaKipas
             {
                 g1.Print();
                 List<Node> nodes;
-                nodes = g1.BFS(new Node(Node1.Text), new Node(Node2.Text));
+                Globals.nodelist = new(); //reset global variabel
+                Globals.dfsfound = false;
+                g1.DFS(new Node(Node1.Text), new Node(Node2.Text), new List<Node>());
+                nodes = Globals.nodelist;
+                /*foreach (Node v in nodes)
+                {
+                    Debug.WriteLine(v.GetInfo());
+                }*/
 
                 //create the graph content
                 foreach (KeyValuePair<Node, LinkedList<Node>> entry in g1.GetAdjList())

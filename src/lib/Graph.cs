@@ -6,6 +6,11 @@ using System.Linq;
 
 namespace HanyaKipas.Lib
 {
+    static class Globals
+    {
+        public static bool dfsfound = false;
+        public static List<Vertex> nodelist = new();
+    }
     public class Graph
     {
         private Dictionary<Vertex, LinkedList<Vertex>> adjList = new();
@@ -207,7 +212,7 @@ namespace HanyaKipas.Lib
         /// <param name="entry">sudut asal</param>
         /// <param name="target">sudut tujuan</param>
         /// <returns>list vertex (sudut) yang harus dilalui</returns>
-        public List<Vertex> DFS(Vertex entry, Vertex target)
+        /*public List<Vertex> DFS(Vertex entry, Vertex target)
         {
             Dictionary<Vertex, bool> visited;
             Stack<Vertex> verStack = new();
@@ -265,7 +270,27 @@ namespace HanyaKipas.Lib
                 res.Add(popped);
             }
 
-            return res;
+            return res;*/
+        public void DFS(Vertex entryNode, Vertex target, List<Vertex> visited)
+        {
+            Vertex curVert = entryNode;
+            if (curVert.Equals(target)) //Jika ketemu target
+            { //basis
+                Globals.nodelist.Add(curVert);
+                Globals.dfsfound = true;
+                return;
+            }
+            visited.Add(curVert); //Ditambah ke visited
+            foreach (Vertex vertex in adjList[curVert]) //rekursi
+            {
+                if (!visited.Contains(vertex) && !Globals.dfsfound) //Jika belum divisit dan belum ketemu
+                {
+                    DFS(vertex, target, visited); //rekursi dengan list visited baru
+                }
+            }
+            if (Globals.dfsfound) Globals.nodelist.Add(curVert); //ditambah dari belakang saat sudah ketemu
+            return;
+        }
+
         }
     }
-}
