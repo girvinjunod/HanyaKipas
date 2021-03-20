@@ -47,7 +47,10 @@ namespace HanyaKipas
                 }
                 else
                 {
-                    nodes = g1.DFS(new Node(Node1.Text), new Node(Node2.Text));
+                    Globals.nodelist = new(); //reset global variabel
+                    Globals.dfsfound = false;
+                    g1.DFS(new Node(Node1.Text), new Node(Node2.Text), new List<Node>());
+                    nodes = Globals.nodelist;
                 }
 
                 //create the graph content

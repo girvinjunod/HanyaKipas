@@ -6,6 +6,11 @@ using System.Linq;
 
 namespace HanyaKipas.Lib
 {
+    static class Globals
+    {
+        public static bool dfsfound = false;
+        public static List<Vertex> nodelist = new();
+    }
     public class Graph
     {
         private Dictionary<Vertex, LinkedList<Vertex>> adjList = new();
@@ -204,65 +209,26 @@ namespace HanyaKipas.Lib
         /// <param name="entry">sudut asal</param>
         /// <param name="target">sudut tujuan</param>
         /// <returns>list vertex (sudut) yang harus dilalui</returns>
-        public List<Vertex> DFS(Vertex entry, Vertex target)
+        public void DFS(Vertex entryNode, Vertex target, List<Vertex> visited)
         {
-            Dictionary<Vertex, bool> visited;
-            Stack<Vertex> verStack = new();
-            List<Vertex> res = new();
-            Dictionary<Vertex, Vertex> memory = new();
-            Vertex popped;
-            Vertex previous = entry;
-            bool found = false;
-
-            visited = new();
-            foreach (KeyValuePair<Vertex, LinkedList<Vertex>> kvp in adjList)
-            {
-                visited.Add(kvp.Key, false);
+            Vertex curVert = entryNode;
+            if (curVert.Equals(target)) //Jika ketemu target
+            { //basis
+                Globals.nodelist.Add(curVert);
+                Globals.dfsfound = true;
+                return;
             }
-
-            verStack.Push(entry);
-            while (!found && verStack.Count > 0)
+            visited.Add(curVert); //Ditambah ke visited
+            foreach (Vertex vertex in adjList[curVert]) //rekursi
             {
-                uint jmlMsk = 0;
-                popped = verStack.Pop(); // curVert
-                if (popped.Equals(target)) // kalo udah ketemu
+                if (!visited.Contains(vertex) && !Globals.dfsfound) //Jika belum divisit dan belum ketemu
                 {
-                    found = true;
-                    memory.Add(popped, previous);
-                }
-                else
-                {
-                    // masukin tetangga2nya ke stack
-                    for (LinkedListNode<Vertex> vn = adjList[popped].Last;
-                         vn != null;
-                         vn = vn.Previous)
-                    {
-                        Vertex vertex = vn.Value;
-
-                        if (!visited[vertex])
-                        {
-                            verStack.Push(vertex);
-                            jmlMsk++;
-                        }
-                    }
-                    visited[popped] = true; // tandain udah divisit
-                    memory.Add(popped, previous);
-                    previous = jmlMsk > 0 ? popped : memory[previous];
+                    DFS(vertex, target, visited); //rekursi dengan list visited baru
                 }
             }
+            if (Globals.dfsfound) Globals.nodelist.Add(curVert); //ditambah dari belakang saat sudah ketemu
+            return;
+        }
 
-            if (found)
-            {
-                popped = target;
-                do
-                {
-                    res.Add(popped);
-                    popped = memory[popped];
-                } while (!popped.Equals(entry));
-                res.Add(popped);
-            }
-
-            return res;
         }
     }
-}
