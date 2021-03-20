@@ -38,11 +38,17 @@ namespace HanyaKipas
 
             Boolean cek = true;
 
-            try
+            try // in case ada error di BFS/DFS, atau di tempat lainnya
             {
-                g1.Print();
                 List<Node> nodes;
-                nodes = g1.BFS(new Node(Node1.Text), new Node(Node2.Text));
+                if ((bool)RadioBFS.IsChecked)
+                {
+                    nodes = g1.BFS(new Node(Node1.Text), new Node(Node2.Text));
+                }
+                else
+                {
+                    nodes = g1.DFS(new Node(Node1.Text), new Node(Node2.Text));
+                }
 
                 //create the graph content
                 foreach (KeyValuePair<Node, LinkedList<Node>> entry in g1.GetAdjList())
@@ -88,10 +94,10 @@ namespace HanyaKipas
                         graph.FindNode(Node2.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
                     }
                 }
-                catch { }
+                catch { } // ini try-catch buat apa? v':
 
                 SilumanForm.SuspendLayout();
-                try
+                try // try-catch in case of belom di-set item apa2 di SilumanForm
                 {
                     SilumanForm.Controls.RemoveAt(0);
                 }
@@ -144,7 +150,7 @@ namespace HanyaKipas
                 p = new(dlg.FileName);
             }
 
-            try
+            try // in case user batalin milih file
             {
                 p.Parse();
                 g1 = p.HasilParse;
@@ -157,7 +163,6 @@ namespace HanyaKipas
             catch { }
         }
         private void Window_Loaded(object sender, RoutedEventArgs e) { }
-
     }
 }
 

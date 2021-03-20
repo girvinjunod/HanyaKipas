@@ -130,10 +130,7 @@ namespace HanyaKipas.Lib
         /// </summary>
         public void Clear()
         {
-            foreach (KeyValuePair<Vertex, LinkedList<Vertex>> kvp in adjList)
-            {
-                adjList.Remove(kvp.Key);
-            }
+            adjList.Clear();
         }
 
         // Searching!
