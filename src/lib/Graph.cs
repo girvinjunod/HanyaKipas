@@ -202,6 +202,7 @@ namespace HanyaKipas.Lib
 
             return res;
         }
+
         /// <summary>
         /// Mencari sudut-sudut yang harus dilalui untuk mencapai suatu sudut
         /// dari sudut lain menggunakan metode DFS
@@ -229,6 +230,7 @@ namespace HanyaKipas.Lib
             if (Globals.dfsfound) Globals.nodelist.Add(curVert); //ditambah dari belakang saat sudah ketemu
             return;
         }
+
         public Dictionary<Vertex, int> FriendRecommendation(Vertex terpilih)
         {
             Dictionary<Vertex, int> countmutual = new(); //bikin dict buat ngeliat per jumlah mutual friends
@@ -252,13 +254,26 @@ namespace HanyaKipas.Lib
                     }
                 }
             }
-            //foreach (KeyValuePair<Vertex, int> kvp in countmutual) //buat debug
-            //{
-            //    Debug.WriteLine("Friend Recommendation: " + kvp.Key.GetInfo());
-            //    Debug.WriteLine("Mutual Friends: " + kvp.Value);
-            //}
+            Debug.WriteLine("Debug Friend Rec");
+            foreach (KeyValuePair<Vertex, int> kvp in countmutual) //buat debug
+            {
+                Debug.WriteLine("Friend Recommendation: " + kvp.Key.GetInfo());
+                Debug.WriteLine("Mutual Friends: " + kvp.Value);
+            }
             return countmutual;
         }
 
+        public List<Vertex> MutualFriends(Vertex terpilih, Vertex Recommended)
+        {
+            List < Vertex> mutual = new();
+            foreach(Vertex tetangga in adjList[terpilih])
+            {
+                if (adjList[Recommended].Contains(tetangga))
+                {
+                    mutual.Add(tetangga);
+                }
+            }
+            return mutual;
+            
         }
     }
