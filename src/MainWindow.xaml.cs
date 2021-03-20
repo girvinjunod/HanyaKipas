@@ -52,6 +52,7 @@ namespace HanyaKipas
                     g1.DFS(new Node(Node1.Text), new Node(Node2.Text), new List<Node>());
                     nodes = Globals.nodelist;
                 }
+                //g1.FriendRecommendation(new Node(Node1.Text));
 
                 //create the graph content
                 foreach (KeyValuePair<Node, LinkedList<Node>> entry in g1.GetAdjList())

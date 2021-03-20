@@ -229,6 +229,36 @@ namespace HanyaKipas.Lib
             if (Globals.dfsfound) Globals.nodelist.Add(curVert); //ditambah dari belakang saat sudah ketemu
             return;
         }
+        public Dictionary<Vertex, int> FriendRecommendation(Vertex terpilih)
+        {
+            Dictionary<Vertex, int> countmutual = new(); //bikin dict buat ngeliat per jumlah mutual friends
+            foreach (Vertex tetangga in adjList[terpilih]) //liat tetangga terpilih
+            {
+                foreach (Vertex tetangganya_tetangga in adjList[tetangga]) //liat tetangganya tetangga
+                {
+                    if (!tetangganya_tetangga.Equals(terpilih) &&!adjList[terpilih].Contains(tetangganya_tetangga)) //jika bukan terpilih atau teman terpilih
+                    {
+                        if (!countmutual.ContainsKey(tetangganya_tetangga)) //jika belum ada tambah 1
+                        {
+                            countmutual.Add(tetangganya_tetangga, 1);
+                        }
+                        else //jika udah ada tambahin ke yg udah ada
+                        {
+                            int count = countmutual[tetangganya_tetangga];
+                            count += 1;
+                            countmutual.Remove(tetangganya_tetangga);
+                            countmutual.Add(tetangganya_tetangga, count);
+                        }
+                    }
+                }
+            }
+            //foreach (KeyValuePair<Vertex, int> kvp in countmutual) //buat debug
+            //{
+            //    Debug.WriteLine("Friend Recommendation: " + kvp.Key.GetInfo());
+            //    Debug.WriteLine("Mutual Friends: " + kvp.Value);
+            //}
+            return countmutual;
+        }
 
         }
     }
