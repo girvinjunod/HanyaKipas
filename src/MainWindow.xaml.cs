@@ -41,6 +41,7 @@ namespace HanyaKipas
             try
             {
                 g1.Print();
+                //g1.FriendRecommendation(new Node(Node1.Text));
                 List<Node> nodes;
                 Globals.nodelist = new(); //reset global variabel
                 Globals.dfsfound = false;
