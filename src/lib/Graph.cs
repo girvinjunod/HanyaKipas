@@ -135,10 +135,7 @@ namespace HanyaKipas.Lib
         /// </summary>
         public void Clear()
         {
-            foreach (KeyValuePair<Vertex, LinkedList<Vertex>> kvp in adjList)
-            {
-                adjList.Remove(kvp.Key);
-            }
+            adjList.Clear();
         }
 
         // Searching!
@@ -205,6 +202,7 @@ namespace HanyaKipas.Lib
 
             return res;
         }
+
         /// <summary>
         /// Mencari sudut-sudut yang harus dilalui untuk mencapai suatu sudut
         /// dari sudut lain menggunakan metode DFS
@@ -212,65 +210,6 @@ namespace HanyaKipas.Lib
         /// <param name="entry">sudut asal</param>
         /// <param name="target">sudut tujuan</param>
         /// <returns>list vertex (sudut) yang harus dilalui</returns>
-        /*public List<Vertex> DFS(Vertex entry, Vertex target)
-        {
-            Dictionary<Vertex, bool> visited;
-            Stack<Vertex> verStack = new();
-            List<Vertex> res = new();
-            Dictionary<Vertex, Vertex> memory = new();
-            Vertex popped;
-            Vertex previous = entry;
-            bool found = false;
-
-            visited = new();
-            foreach (KeyValuePair<Vertex, LinkedList<Vertex>> kvp in adjList)
-            {
-                visited.Add(kvp.Key, false);
-            }
-
-            verStack.Push(entry);
-            while (!found && verStack.Count > 0)
-            {
-                uint jmlMsk = 0;
-                popped = verStack.Pop(); // curVert
-                if (popped.Equals(target)) // kalo udah ketemu
-                {
-                    found = true;
-                    memory.Add(popped, previous);
-                }
-                else
-                {
-                    // masukin tetangga2nya ke stack
-                    for (LinkedListNode<Vertex> vn = adjList[popped].Last;
-                         vn != null;
-                         vn = vn.Previous)
-                    {
-                        Vertex vertex = vn.Value;
-
-                        if (!visited[vertex])
-                        {
-                            verStack.Push(vertex);
-                            jmlMsk++;
-                        }
-                    }
-                    visited[popped] = true; // tandain udah divisit
-                    memory.Add(popped, previous);
-                    previous = jmlMsk > 0 ? popped : memory[previous];
-                }
-            }
-
-            if (found)
-            {
-                popped = target;
-                do
-                {
-                    res.Add(popped);
-                    popped = memory[popped];
-                } while (!popped.Equals(entry));
-                res.Add(popped);
-            }
-
-            return res;*/
         public void DFS(Vertex entryNode, Vertex target, List<Vertex> visited)
         {
             Vertex curVert = entryNode;
@@ -292,5 +231,49 @@ namespace HanyaKipas.Lib
             return;
         }
 
+        public Dictionary<Vertex, int> FriendRecommendation(Vertex terpilih)
+        {
+            Dictionary<Vertex, int> countmutual = new(); //bikin dict buat ngeliat per jumlah mutual friends
+            foreach (Vertex tetangga in adjList[terpilih]) //liat tetangga terpilih
+            {
+                foreach (Vertex tetangganya_tetangga in adjList[tetangga]) //liat tetangganya tetangga
+                {
+                    if (!tetangganya_tetangga.Equals(terpilih) &&!adjList[terpilih].Contains(tetangganya_tetangga)) //jika bukan terpilih atau teman terpilih
+                    {
+                        if (!countmutual.ContainsKey(tetangganya_tetangga)) //jika belum ada tambah 1
+                        {
+                            countmutual.Add(tetangganya_tetangga, 1);
+                        }
+                        else //jika udah ada tambahin ke yg udah ada
+                        {
+                            int count = countmutual[tetangganya_tetangga];
+                            count += 1;
+                            countmutual.Remove(tetangganya_tetangga);
+                            countmutual.Add(tetangganya_tetangga, count);
+                        }
+                    }
+                }
+            }
+            Debug.WriteLine("Debug Friend Rec");
+            foreach (KeyValuePair<Vertex, int> kvp in countmutual) //buat debug
+            {
+                Debug.WriteLine("Friend Recommendation: " + kvp.Key.GetInfo());
+                Debug.WriteLine("Mutual Friends: " + kvp.Value);
+            }
+            return countmutual;
+        }
+
+        public List<Vertex> MutualFriends(Vertex terpilih, Vertex Recommended)
+        {
+            List < Vertex> mutual = new();
+            foreach(Vertex tetangga in adjList[terpilih])
+            {
+                if (adjList[Recommended].Contains(tetangga))
+                {
+                    mutual.Add(tetangga);
+                }
+            }
+            return mutual;
         }
     }
+}
