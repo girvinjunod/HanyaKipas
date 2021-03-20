@@ -254,13 +254,22 @@ namespace HanyaKipas.Lib
                     }
                 }
             }
+            int cdict = countmutual.Count;
+            Dictionary<Vertex, int> sorted = new();
+            for (int i = 0; i < cdict; i++) //ngesort dict
+            {
+                int maxcount = countmutual.Values.Max();
+                Vertex max = countmutual.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
+                countmutual.Remove(max);
+                sorted.Add(max, maxcount);
+            }
             Debug.WriteLine("Debug Friend Rec");
-            foreach (KeyValuePair<Vertex, int> kvp in countmutual) //buat debug
+            foreach (KeyValuePair<Vertex, int> kvp in sorted) //buat debug
             {
                 Debug.WriteLine("Friend Recommendation: " + kvp.Key.GetInfo());
                 Debug.WriteLine("Mutual Friends: " + kvp.Value);
             }
-            return countmutual;
+            return sorted;
         }
 
         public List<Vertex> MutualFriends(Vertex terpilih, Vertex Recommended)
