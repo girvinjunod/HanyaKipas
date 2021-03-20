@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -38,29 +39,21 @@ namespace HanyaKipas
 
             Boolean cek = true;
 
-            try
+            try // in case ada error di BFS/DFS, atau di tempat lainnya
             {
-                g1.Print();
-                List<Node> nodes = new();
-                if (DFSButton.IsChecked == true)
-                {
-                    Globals.nodelist = new(); //reset global variabel
-                    Globals.dfsfound = false;
-                    g1.DFS(new Node(Node1.Text), new Node(Node2.Text), new List<Node>());
-                    nodes = Globals.nodelist;
-                } else if(BFSButton.IsChecked == true)
+                List<Node> nodes;
+                if ((bool)RadioBFS.IsChecked)
                 {
                     nodes = g1.BFS(new Node(Node1.Text), new Node(Node2.Text));
                 }
                 else
                 {
-                    System.Windows.MessageBox.Show("Graf belum dipilih. Silahkan memilih Graf", "Error");
-                    return;
+                    Globals.nodelist = new(); //reset global variabel
+                    Globals.dfsfound = false;
+                    g1.DFS(new Node(Node1.Text), new Node(Node2.Text), new List<Node>());
+                    nodes = Globals.nodelist;
                 }
-                /*foreach (Node v in nodes)
-                {
-                    Debug.WriteLine(v.GetInfo());
-                }*/
+                //g1.FriendRecommendation(new Node(Node1.Text));
 
                 //create the graph content
                 foreach (KeyValuePair<Node, LinkedList<Node>> entry in g1.GetAdjList())
@@ -106,10 +99,10 @@ namespace HanyaKipas
                         graph.FindNode(Node2.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
                     }
                 }
-                catch { }
+                catch { } // ini try-catch buat apa? v':
 
                 SilumanForm.SuspendLayout();
-                try
+                try // try-catch in case of belom di-set item apa2 di SilumanForm
                 {
                     SilumanForm.Controls.RemoveAt(0);
                 }
@@ -131,7 +124,7 @@ namespace HanyaKipas
             }
             catch
             {
-                System.Windows.MessageBox.Show("Graf belum dipilih. Silahkan memilih Graf","Error");
+                System.Windows.MessageBox.Show("Graf belum dipilih.");
             }
         }
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -162,7 +155,7 @@ namespace HanyaKipas
                 p = new(dlg.FileName);
             }
 
-            try
+            try // in case user batalin milih file
             {
                 p.Parse();
                 g1 = p.HasilParse;
@@ -175,7 +168,5 @@ namespace HanyaKipas
             catch { }
         }
         private void Window_Loaded(object sender, RoutedEventArgs e) { }
-
     }
 }
-
