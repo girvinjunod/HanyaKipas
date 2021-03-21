@@ -155,7 +155,11 @@ namespace HanyaKipas.Lib
             List<Vertex> res = new(); // menyimpan vertex hasil
             Vertex curVert; // vertex yang sedang dikunjungi
             bool found = target == entry;
-
+            if (entry.Equals(target))
+            {
+                res.Add(entry);
+                return res;
+            }
             visited = new();
             foreach (KeyValuePair<Vertex, LinkedList<Vertex>> kvp in adjList)
             {
@@ -263,12 +267,12 @@ namespace HanyaKipas.Lib
                 countmutual.Remove(max);
                 sorted.Add(max, maxcount);
             }
-            Debug.WriteLine("Debug Friend Rec");
+            /*Debug.WriteLine("Debug Friend Rec");
             foreach (KeyValuePair<Vertex, int> kvp in sorted) //buat debug
             {
                 Debug.WriteLine("Friend Recommendation: " + kvp.Key.GetInfo());
                 Debug.WriteLine("Mutual Friends: " + kvp.Value);
-            }
+            }*/
             return sorted;
         }
 
@@ -283,6 +287,48 @@ namespace HanyaKipas.Lib
                 }
             }
             return mutual;
+        }
+
+        public string NDegreeConnection(List<Vertex> l)
+        {
+            l.Reverse();
+            string result = "";
+            int N = l.Count;
+            if (N == 1) //koneksi ke diri sendiri
+            {
+                result = "Koneksi dengan diri sendiri";
+            }
+            else {
+                foreach (Vertex v in l)
+                {
+                    result += v.GetInfo();
+                    if (!l[N - 1].Equals(v))
+                    {
+                        result += "-> ";
+                    }
+                }
+                N -= 2;
+                int satuan = N % 10;
+                int sepuluhan = (N / 10) % 10;
+                string suffix;
+                if (sepuluhan == 1) //kasus sepuluhan (10, 11, 12, 113), selalu th
+                {
+                    suffix = "th";
+                }
+                else
+                {
+                    switch (satuan) //liat angka terakhir
+                    {
+                        case 1 : suffix = "st"; break;
+                        case 2 : suffix = "nd"; break;
+                        case 3 : suffix = "rd"; break;
+                        default : suffix = "th"; break; 
+                    }
+                }
+                result = (result + ", " + N.ToString() + suffix + " degree");
+            }
+            //Debug.WriteLine(result);
+            return result;
         }
     }
 }

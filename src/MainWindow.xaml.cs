@@ -57,27 +57,32 @@ namespace HanyaKipas
                 Dictionary<Node, int> priend = g1.FriendRecommendation(new Node(Node1.Text));
                 String result = "";
                 //Node a = new Node(Node1.Text);
-
-                result += "Friend Exploration with : "+ Node2.Text  + "\n" ;
-                nodes.Reverse();
-                foreach (Node apel in nodes)
+                /*foreach (Node n in nodes)
                 {
-                    result += apel.GetInfo();
-                    if (!nodes[nodes.Count - 1].Equals(apel))
-                    {
-                        result += "-> ";
-                    }
-                    //result += "\n";
-                }
+                    Debug.WriteLine(n.GetInfo());
+                }*/
+                string nuklir = g1.NDegreeConnection(nodes);
+                result += "Friend Exploration with : "+ Node2.Text  + "\n" ;
+                result += nuklir;
                 result += "\n";
                 nodes.Reverse();
+                /* buat mutual friends dari yg diexplore
+                result += "Mutual Friend :\n";
+                List<Node> mutuale = g1.MutualFriends(new Node(Node1.Text), new Node(Node2.Text));
+                foreach (Node awe in mutuale)
+                {
+                    result += awe.GetInfo();
+                    if (!mutuale[mutuale.Count - 1].Equals(awe))
+                    {
+                        result += ", ";
+                    }
+                }
+                result += "\n";*/
 
-                result += "Friend Reccomendation : \n";
-                Debug.WriteLine("Debug Mutual friends");
+                result += "Friend Recommendation : \n";
                 foreach (KeyValuePair<Node, int> n in priend)
                 {
                     List<Node> mutual = g1.MutualFriends(new Node(Node1.Text), n.Key);
-                    Debug.WriteLine("Mutual Friend dari " + n.Key.GetInfo());
                     result += "Mutual Friend dari " + n.Key.GetInfo() + " :\n";
                     foreach (Node aw in mutual)
                     {
@@ -85,10 +90,10 @@ namespace HanyaKipas
                         if (!mutual[mutual.Count - 1].Equals(aw)){
                             result +=  ", ";
                         }
-                        Debug.WriteLine(aw.GetInfo());
                     }
                     result += "\n";
                 }
+                Debug.WriteLine(result);
                 ResultLabel.Content = result;
 
                 //g1.FriendRecommendation(new Node(Node1.Text));
