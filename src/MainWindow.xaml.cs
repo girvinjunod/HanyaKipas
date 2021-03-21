@@ -63,7 +63,9 @@ namespace HanyaKipas
                 result += nuklir;
                 result += "\n";
 
-                /* result += "\n";
+                /* 
+                //ini buat kalo mau nunjukkin mutual friend buat node yg disearch, tapi rasanya redundan
+                result += "\n";
                 List<Node> mutuale = g1.MutualFriends(new Node(Node1.Text), new Node(Node2.Text));
                 result += mutuale.Count + " Mutual Friend(s) with " + Node2.Text + ": \n";
                 bool baris = false;
