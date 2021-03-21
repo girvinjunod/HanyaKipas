@@ -30,14 +30,16 @@ namespace HanyaKipas
             InitializeComponent();
         }
 
-        private void btnClickP1(object sender, RoutedEventArgs e)
+        private void BtnClickP1(object sender, RoutedEventArgs e)
         {
             //create a viewer object
             Microsoft.Msagl.GraphViewerGdi.GViewer GraphViewer = new();
             //create a graph object
             Microsoft.Msagl.Drawing.Graph graph = new("graph");
 
-            Boolean cek = true;
+            bool cek = true;
+            ResultLabel.Opacity = 1;
+            ResultLabel.Text = "";
 
             try // in case ada error di BFS/DFS, atau di tempat lainnya
             {
@@ -55,48 +57,34 @@ namespace HanyaKipas
                 }
 
                 Dictionary<Node, int> priend = g1.FriendRecommendation(new Node(Node1.Text));
-                String result = "";
-                //Node a = new Node(Node1.Text);
-                /*foreach (Node n in nodes)
-                {
-                    Debug.WriteLine(n.GetInfo());
-                }*/
-                string nuklir = g1.NDegreeConnection(nodes);
-                result += "Friend Exploration with : "+ Node2.Text  + "\n" ;
+                string result = "";
+                string nuklir = Graph.NDegreeConnection(nodes);
+                result += "Friend Exploration with: " + Node2.Text + "\n";
                 result += nuklir;
                 result += "\n";
                 nodes.Reverse();
-                /* buat mutual friends dari yg diexplore
-                result += "Mutual Friend :\n";
-                List<Node> mutuale = g1.MutualFriends(new Node(Node1.Text), new Node(Node2.Text));
-                foreach (Node awe in mutuale)
-                {
-                    result += awe.GetInfo();
-                    if (!mutuale[mutuale.Count - 1].Equals(awe))
-                    {
-                        result += ", ";
-                    }
-                }
-                result += "\n";*/
 
-                result += "Friend Recommendation : \n";
-                foreach (KeyValuePair<Node, int> n in priend)
+                if (!Node1.Text.Equals(Node2.Text))
                 {
-                    List<Node> mutual = g1.MutualFriends(new Node(Node1.Text), n.Key);
-                    result += "Mutual Friend dari " + n.Key.GetInfo() + " :\n";
-                    foreach (Node aw in mutual)
+                    result += "\nFriend Recommendation: \n";
+                    foreach (KeyValuePair<Node, int> n in priend)
                     {
-                        result += aw.GetInfo();
-                        if (!mutual[mutual.Count - 1].Equals(aw)){
-                            result +=  ", ";
+                        List<Node> mutual = g1.MutualFriends(new Node(Node1.Text), n.Key);
+                        result += "  Mutual Friend dari " + n.Key.GetInfo() + ":\n    ";
+                        foreach (Node aw in mutual)
+                        {
+                            result += aw.GetInfo();
+                            if (!mutual[mutual.Count - 1].Equals(aw))
+                            {
+                                result += ", ";
+                            }
                         }
+                        result += "\n";
                     }
-                    result += "\n";
                 }
-                Debug.WriteLine(result);
-                ResultLabel.Content = result;
-
-                //g1.FriendRecommendation(new Node(Node1.Text));
+                result.Trim('\n');
+                ResultLabel.Text = result;
+                //System.Windows.MessageBox.Show(result, "hasil"); // ide Alex
 
                 //create the graph content
                 foreach (KeyValuePair<Node, LinkedList<Node>> entry in g1.GetAdjList())
@@ -130,19 +118,18 @@ namespace HanyaKipas
                         cek = true;
                     }
                 }
-                try
+
+                // if-else block ini tadinya di dalem try-catch block tapi dicabut karena
+                // "why is it in a try-catch block?"
+                if (Node1.Text == Node2.Text)
                 {
-                    if (Node1.Text == Node2.Text)
-                    {
-                        graph.FindNode(Node1.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.BlanchedAlmond;
-                    }
-                    else
-                    {
-                        graph.FindNode(Node1.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Aqua;
-                        graph.FindNode(Node2.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
-                    }
+                    graph.FindNode(Node1.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.BlanchedAlmond;
                 }
-                catch { } // ini try-catch buat apa? v':
+                else
+                {
+                    graph.FindNode(Node1.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Aqua;
+                    graph.FindNode(Node2.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+                }
 
                 SilumanForm.SuspendLayout();
                 try // try-catch in case of belom di-set item apa2 di SilumanForm
@@ -211,5 +198,10 @@ namespace HanyaKipas
             catch { }
         }
         private void Window_Loaded(object sender, RoutedEventArgs e) { }
+
+        private void ResultLabel_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
+        {
+
+        }
     }
 }

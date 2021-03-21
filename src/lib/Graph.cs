@@ -289,10 +289,10 @@ namespace HanyaKipas.Lib
             return mutual;
         }
 
-        public string NDegreeConnection(List<Vertex> l)
+        public static string NDegreeConnection(List<Vertex> l)
         {
             l.Reverse();
-            string result = "";
+            string result = "  ";
             int N = l.Count;
             if (N == 1) //koneksi ke diri sendiri
             {
@@ -304,7 +304,7 @@ namespace HanyaKipas.Lib
                     result += v.GetInfo();
                     if (!l[N - 1].Equals(v))
                     {
-                        result += "-> ";
+                        result += " → ";
                     }
                 }
                 N -= 2;
@@ -325,9 +325,9 @@ namespace HanyaKipas.Lib
                         default : suffix = "th"; break; 
                     }
                 }
-                result = (result + ", " + N.ToString() + suffix + " degree");
+                result = (result + " [" + N.ToString() + suffix + " degree]");
             }
-            //Debug.WriteLine(result);
+
             return result;
         }
     }
