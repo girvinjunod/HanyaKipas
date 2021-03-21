@@ -292,9 +292,13 @@ namespace HanyaKipas.Lib
         public static string NDegreeConnection(List<Vertex> l)
         {
             l.Reverse();
-            string result = "  ";
+            string result = "";
             int N = l.Count;
-            if (N == 1) //koneksi ke diri sendiri
+            if (N == 0)
+            {
+                result = "Tidak ada jalur koneksi yang tersedia\nAnda harus memulai koneksi baru itu sendiri";
+            }
+            else if (N == 1) //koneksi ke diri sendiri
             {
                 result = "Koneksi dengan diri sendiri";
             }

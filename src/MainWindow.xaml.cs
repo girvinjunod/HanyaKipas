@@ -59,28 +59,41 @@ namespace HanyaKipas
                 Dictionary<Node, int> priend = g1.FriendRecommendation(new Node(Node1.Text));
                 string result = "";
                 string nuklir = Graph.NDegreeConnection(nodes);
-                result += "Friend Exploration with: " + Node2.Text + "\n";
+                result += "Friend Exploration with: " + Node2.Text + "\n\n";
                 result += nuklir;
                 result += "\n";
-                nodes.Reverse();
 
-                if (!Node1.Text.Equals(Node2.Text))
+                /* result += "\n";
+                List<Node> mutuale = g1.MutualFriends(new Node(Node1.Text), new Node(Node2.Text));
+                result += mutuale.Count + " Mutual Friend(s) with " + Node2.Text + ": \n";
+                bool baris = false;
+                foreach (Node awe in mutuale)
                 {
-                    result += "\nFriend Recommendation: \n";
-                    foreach (KeyValuePair<Node, int> n in priend)
+                    baris = true;
+                    result += awe.GetInfo();
+                    if (!mutuale[mutuale.Count - 1].Equals(awe))
                     {
-                        List<Node> mutual = g1.MutualFriends(new Node(Node1.Text), n.Key);
-                        result += "  Mutual Friend dari " + n.Key.GetInfo() + ":\n    ";
-                        foreach (Node aw in mutual)
-                        {
-                            result += aw.GetInfo();
-                            if (!mutual[mutual.Count - 1].Equals(aw))
-                            {
-                                result += ", ";
-                            }
-                        }
-                        result += "\n";
+                        result += ", ";
                     }
+                }
+                if (baris) result += "\n";*/
+                
+                result += "\nFriend Recommendation(s): \n";
+                foreach (KeyValuePair<Node, int> n in priend)
+                {
+                    List<Node> mutual = g1.MutualFriends(new Node(Node1.Text), n.Key);
+                    result += "\n";
+                    result += "=> " +n.Key.GetInfo() + "\n";
+                    result += mutual.Count + " Mutual Friend(s): \n";
+                    foreach (Node aw in mutual)
+                    {
+                        result += aw.GetInfo();
+                        if (!mutual[mutual.Count - 1].Equals(aw))
+                        {
+                            result += ", ";
+                        }
+                    }
+                    result += "\n";
                 }
                 result.Trim('\n');
                 ResultLabel.Text = result;
