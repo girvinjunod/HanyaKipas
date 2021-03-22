@@ -13,9 +13,31 @@ DFS( Depth First Search) adalah algoritma pencarian dalam suatu graf yang dalam 
 3. Rekursi dilakukan sampai node yang dipilih adalah node target.
 # Requirements
 1. Operating System Windows
+2. File input dalam .txt yang mengikuti format
+### Format Penulisan file .txt
+Banyak sisi
+
+Node Node (sisi)
+
+Node Node
+
+Node Node
+
+...
+
+#### Contoh:
+
+3
+
+A B
+
+B C
+
+E D
+
 # How to Run
 1. Run file bin/HanyaKipas.exe
-2. Pastikan memiliki file input graf berbentuk .txt yang sudah mengikuti format seperti di spesifikasi
+2. Pastikan memiliki file input graf berbentuk .txt yang sudah mengikuti format
 3. Klik choose file, pilih file .txt yang diinginkan
 4. Pilih algoritma DFS atau BFS
 5. Pilih akun dan pilih akun target
