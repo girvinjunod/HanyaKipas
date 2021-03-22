@@ -17,7 +17,7 @@ namespace HanyaKipas.Lib
         {
             HasilParse.Clear();
             string[] lines = System.IO.File.ReadAllLines(@path);
-            foreach (string line in lines.Skip(1))
+            foreach (string line in lines)
             {
                 int temp = line.IndexOf(" ");
                 string node1 = line.Substring(0, temp);
