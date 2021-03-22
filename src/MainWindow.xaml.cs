@@ -44,12 +44,15 @@ namespace HanyaKipas
             try // in case ada error di BFS/DFS, atau di tempat lainnya
             {
                 List<Node> nodes;
+                bool pilihan;
                 if ((bool)RadioBFS.IsChecked)
                 {
+                    pilihan = true;
                     nodes = g1.BFS(new Node(Node1.Text), new Node(Node2.Text));
                 }
                 else
                 {
+                    pilihan = false;
                     Globals.nodelist = new(); //reset global variabel
                     Globals.dfsfound = false;
                     g1.DFS(new Node(Node1.Text), new Node(Node2.Text), new List<Node>());
@@ -83,9 +86,22 @@ namespace HanyaKipas
                 result += "\nFriend Recommendation(s): \n";
                 foreach (KeyValuePair<Node, int> n in priend)
                 {
+                    List<Node> jalur;
+                    if (pilihan)
+                    {
+                        jalur = g1.BFS(new Node(Node1.Text), n.Key);
+                    }
+                    else
+                    {
+                        Globals.nodelist = new(); //reset global variabel
+                        Globals.dfsfound = false;
+                        g1.DFS(new Node(Node1.Text), n.Key, new List<Node>());
+                        jalur = Globals.nodelist;
+                    }
+                    string anjay = Graph.NDegreeConnection(jalur);
                     List<Node> mutual = g1.MutualFriends(new Node(Node1.Text), n.Key);
                     result += "\n";
-                    result += "=> " +n.Key.GetInfo() + "\n";
+                    result += "=> " +n.Key.GetInfo() + " (" + anjay + ")" + "\n";
                     result += mutual.Count + " Mutual Friend(s): \n";
                     foreach (Node aw in mutual)
                     {
