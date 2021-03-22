@@ -50,6 +50,6 @@
         <Label Content="Explore Friends with :" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="25" Margin="58,411,0,0" VerticalAlignment="Top" Width="154" FontSize="14" FontWeight="Bold"/>
         <ComboBox x:Name="Node1" Grid.ColumnSpan="2" IsEditable="True" IsReadOnly="True" Text="Choose A Node" HorizontalAlignment="Left" Height="25" Margin="230,362,0,0" VerticalAlignment="Top" Width="200" Background="White"></ComboBox>
         <ComboBox x:Name="Node2" Grid.ColumnSpan="2" IsEditable="True" IsReadOnly="True" Text="Choose A Node" HorizontalAlignment="Left" Height="25" Margin="230,411,0,0" VerticalAlignment="Top" Width="200" Background="White"/>
-        <TextBox x:Name="ResultLabel" Background="WhiteSmoke" IsReadOnly="True" Grid.Column="2" HorizontalAlignment="Left" Margin="5,11,0,0" VerticalAlignment="Top" Width="901" Height="217" FontSize="20" Opacity="0" Grid.Row="1"/>
+        <TextBox x:Name="ResultLabel" Background="WhiteSmoke" IsReadOnly="True" Grid.Column="2" HorizontalAlignment="Left" Margin="5,11,0,0" VerticalAlignment="Top" Width="901" Height="217" FontSize="20" Opacity="0" Grid.Row="1" TextWrapping="WrapWithOverflow"/>
     </Grid>
 </Window>
