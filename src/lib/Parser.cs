@@ -1,5 +1,3 @@
-using System.Linq;
-
 namespace HanyaKipas.Lib
 {
     class Parser
@@ -17,12 +15,20 @@ namespace HanyaKipas.Lib
         {
             HasilParse.Clear();
             string[] lines = System.IO.File.ReadAllLines(@path);
-            foreach (string line in lines)
+            try
             {
-                int temp = line.IndexOf(" ");
-                string node1 = line.Substring(0, temp);
-                string node2 = line.Substring(temp + 1);
-                HasilParse.AddEdge(new Node(node1), new Node(node2));
+                foreach (string line in lines)
+                {
+                    int temp = line.IndexOf(" ");
+                    string node1 = line.Substring(0, temp);
+                    string node2 = line.Substring(temp + 1);
+                    HasilParse.AddEdge(new Node(node1), new Node(node2));
+                }
+            }
+            catch (System.ArgumentOutOfRangeException)
+            {
+                //HadehMoment.ShowError("Gagal parsing berkas graf.");
+                throw new System.ArgumentOutOfRangeException();
             }
         }
     }

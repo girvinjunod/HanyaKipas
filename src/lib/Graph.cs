@@ -138,7 +138,7 @@ namespace HanyaKipas.Lib
             adjList.Clear();
         }
 
-        // Searching!
+        // Searching!saat 
         /// <summary>
         /// Mencari sudut-sudut yang harus dilalui untuk mencapai suatu sudut
         /// dari sudut lain menggunakan metode BFS
@@ -238,6 +238,10 @@ namespace HanyaKipas.Lib
         public Dictionary<Vertex, int> FriendRecommendation(Vertex terpilih)
         {
             Dictionary<Vertex, int> countmutual = new(); //bikin dict buat ngeliat per jumlah mutual friends
+            if (!adjList.ContainsKey(terpilih))
+            {
+                throw new System.ArgumentOutOfRangeException();
+            }
             foreach (Vertex tetangga in adjList[terpilih]) //liat tetangga terpilih
             {
                 foreach (Vertex tetangganya_tetangga in adjList[tetangga]) //liat tetangganya tetangga
@@ -267,12 +271,6 @@ namespace HanyaKipas.Lib
                 countmutual.Remove(max);
                 sorted.Add(max, maxcount);
             }
-            /*Debug.WriteLine("Debug Friend Rec");
-            foreach (KeyValuePair<Vertex, int> kvp in sorted) //buat debug
-            {
-                Debug.WriteLine("Friend Recommendation: " + kvp.Key.GetInfo());
-                Debug.WriteLine("Mutual Friends: " + kvp.Value);
-            }*/
             return sorted;
         }
 
