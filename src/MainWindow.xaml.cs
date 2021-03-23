@@ -44,19 +44,20 @@ namespace HanyaKipas
             List<Node> nodes;
             bool pilihan;
 
-            try
-            {
-                //if (Node1.Text.Equals("Choose A Node") || Node2.Text.Equals("Choose A Node"))
-                //{
-                //    HadehMoment.ShowError("Kamu belum memilih akun.");
-                //    return;
-
+            // clear visualisasi graf
             try // try-catch in case of belom di-set item apa2 di SilumanForm
             {
                 SilumanForm.Controls.RemoveAt(0);
             }
             catch (System.ArgumentOutOfRangeException) { }
-                //}
+
+            try
+            {
+                if (Node1.Text.Equals("Choose A Node") || Node2.Text.Equals("Choose A Node"))
+                {
+                    HadehMoment.ShowError("Kamu belum memilih akun.");
+                    return;
+                }
                 if ((bool)RadioBFS.IsChecked)
                 {
                     pilihan = true;
@@ -77,16 +78,7 @@ namespace HanyaKipas
                 return;
             }
 
-            Dictionary<Node, int> priend;
-            try
-            {
-                priend = g1.FriendRecommendation(new Node(Node1.Text));
-            }
-            catch (System.ArgumentOutOfRangeException)
-            {
-                HadehMoment.ShowError("Terjadi kesalahan fatal. Apakah sudah memilih dua akun?");
-                return;
-            }
+            Dictionary<Node, int> priend = g1.FriendRecommendation(new Node(Node1.Text));
             string result = "";
             string nuklir = Graph.NDegreeConnection(nodes);
             result += "Friend Exploration with: " + Node2.Text + "\n\n";
