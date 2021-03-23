@@ -53,11 +53,6 @@ namespace HanyaKipas
 
             try
             {
-                if (Node1.Text.Equals("Choose A Node") || Node2.Text.Equals("Choose A Node"))
-                {
-                    HadehMoment.ShowError("Kamu belum memilih akun.");
-                    return;
-                }
                 if ((bool)RadioBFS.IsChecked)
                 {
                     pilihan = true;
@@ -77,8 +72,28 @@ namespace HanyaKipas
                 HadehMoment.ShowError("Graf belum dipilih.");
                 return;
             }
+            catch (System.Collections.Generic.KeyNotFoundException)
+            {
+                HadehMoment.ShowError("Terjadi kesalahan fatal.\nApakah sudah memilih dua akun?");
+                return;
+            }
 
-            Dictionary<Node, int> priend = g1.FriendRecommendation(new Node(Node1.Text));
+            if (Node1.Text.Equals("Choose A Node") || Node2.Text.Equals("Choose A Node"))
+            {
+                HadehMoment.ShowError("Terjadi kesalahan fatal.\nApakah sudah memilih dua akun?");
+                return;
+            }
+
+            Dictionary<Node, int> priend;
+            try
+            {
+                priend = g1.FriendRecommendation(new Node(Node1.Text));
+            }
+            catch (System.ArgumentOutOfRangeException)
+            {
+                HadehMoment.ShowError("Terjadi kesalahan fatal.\nApakah sudah memilih dua akun?");
+                return;
+            }
             string result = "";
             string nuklir = Graph.NDegreeConnection(nodes);
             result += "Friend Exploration with: " + Node2.Text + "\n\n";
@@ -150,14 +165,22 @@ namespace HanyaKipas
                 }
             }
 
-            if (Node1.Text == Node2.Text)
+            try
             {
-                graph.FindNode(Node1.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.BlanchedAlmond;
+                if (Node1.Text == Node2.Text)
+                {
+                    graph.FindNode(Node1.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.BlanchedAlmond;
+                }
+                else
+                {
+                    graph.FindNode(Node1.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Aqua;
+                    graph.FindNode(Node2.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+                }
             }
-            else
+            catch (System.NullReferenceException)
             {
-                graph.FindNode(Node1.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Aqua;
-                graph.FindNode(Node2.Text).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+                HadehMoment.ShowError("Terjadi kesalahan fatal.\nApakah sudah memilih dua akun?");
+                return;
             }
 
             SilumanForm.SuspendLayout();
@@ -187,6 +210,9 @@ namespace HanyaKipas
                 SilumanForm.Controls.RemoveAt(0);
             }
             catch (System.ArgumentOutOfRangeException) { }
+
+            // clear hasil search
+            ResultLabel.Clear();
 
             // Hapus item-item dari combobox Node1 dan Node2 ketika mau dimasukkan file
             Node1.Items.Clear();

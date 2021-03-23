@@ -176,19 +176,26 @@ namespace HanyaKipas.Lib
                 // apakah sudut sudah ketemu?
                 found = target.Equals(curVert);
                 // kalau belum divisit dan belum ketemu, visit sudutnya
-                if (!visited[curVert] && !found)
+                try
                 {
-                    // iterasi semua vertex tetangga
-                    foreach (Vertex vertex in adjList[curVert])
+                    if (!visited[curVert] && !found)
                     {
-                        // tambahin sudut tetangganya yang belum divisit
-                        if (!memory.ContainsKey(vertex))
+                        // iterasi semua vertex tetangga
+                        foreach (Vertex vertex in adjList[curVert])
                         {
-                            toVisit.Enqueue(vertex);
-                            memory.Add(vertex, curVert);
+                            // tambahin sudut tetangganya yang belum divisit
+                            if (!memory.ContainsKey(vertex))
+                            {
+                                toVisit.Enqueue(vertex);
+                                memory.Add(vertex, curVert);
+                            }
                         }
+                        visited[curVert] = true; // tandain udah divisit
                     }
-                    visited[curVert] = true; // tandain udah divisit
+                }
+                catch
+                {
+                    throw new System.Collections.Generic.KeyNotFoundException();
                 }
             }
 
