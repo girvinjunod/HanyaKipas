@@ -15,6 +15,10 @@ DFS( Depth First Search) adalah algoritma pencarian dalam suatu graf yang dalam 
 1. Operating System Windows
 2. File input dalam .txt yang mengikuti format
 ### Format Penulisan file .txt
+1. Pisahkan node dengan spasi untuk menandai adanya sisi 
+2. Hindari penggunaan spasi untuk nama node
+3. Per baris hanya tuliskan dua node untuk satu sisi saja
+
 
 Node Node (sisi)
 
