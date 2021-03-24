@@ -244,6 +244,7 @@ namespace HanyaKipas.Lib
 
         public Dictionary<Vertex, int> FriendRecommendation(Vertex terpilih)
         {
+			//FriendRecommendation ini dibuat dengan algoritma BFS
             Dictionary<Vertex, int> countmutual = new(); //bikin dict buat ngeliat per jumlah mutual friends
             if (!adjList.ContainsKey(terpilih))
             {
